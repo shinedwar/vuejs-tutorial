@@ -18,3 +18,4 @@
 - [表单校验](form-validation)
 - [webpack](webpack)
 - [开发与调试](dev-and-debug)
+- [Vuex](vuex)
