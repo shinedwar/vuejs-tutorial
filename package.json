@@ -1,7 +1,7 @@
 {
   "name": "vuejs-tutorial",
   "version": "1.0.0",
-  "description": "",
+  "description": "vuejs tutorial",
   "main": "index.html",
   "directories": {
     "doc": "docs"
