@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "start": "npm run doc",
     "doc": "docsify serve --port 5000"
   },
   "repository": {
