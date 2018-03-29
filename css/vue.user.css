@@ -1,22 +1,8 @@
-.markdown-section {
-  margin-left: 40px;
-}
-
-.markdown-section img {
-  border-radius: 15px;
-}
-
-.back-to-top {
-  width: 50px;
-  height: 50px;
-  background-color: skyblue;
-  border-radius: 25px;
-  line-height: 50px;
-  text-align: center;
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
+.sidebar .sidebar-nav strong  {
+  list-style: none;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.17em;
+  display: inline-block;
+  margin-top: 15px;
 }

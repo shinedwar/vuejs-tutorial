@@ -3,18 +3,18 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Vue.js 入门</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
+  <meta name="description" content="Vue.js 入门">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
-  <link rel="stylesheet" href="css/vue.user.css">
+  <link rel="icon" sizes="32x32" type="image/png" href="./favicon.png">
+  <link rel="stylesheet" href="./css/vue.css">
+  <link rel="stylesheet" href="./css/vue.user.css">
 </head>
 
 <body>
   <div id="app"></div>
-  <div class="back-to-top">Top</div>
-  <script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script>
+  <script src="./js/docsify-edit-on-github.js"></script>
   <script>
     window.$docsify = {
       name: 'Vue.js 入门',
@@ -26,29 +26,24 @@
       subMaxLevel: 2,
       autoHeader: true,
       homepage: '../README.md',
-      executeScript: true,
       auto2top: true,
       plugins: [
-        EditOnGithubPlugin.create('https://github.com/lipengzhou/vuejs-tutorial/tree/master/docs')
+        EditOnGithubPlugin.create('https://github.com/lipengzhou/vuejs-tutorial/edit/master/docs/')
       ],
       search: {
         maxAge: 86400000,
         paths: 'auto',
-        // 搜索标题的最大程级, 1 - 6
-        depth: 2
+        depth: 3
       }
     }
-
-    // 回到顶部
-    document.querySelector('.back-to-top').addEventListener('click', function () {
-      window.scrollTo(0, 0)
-    })
   </script>
-  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-  <!-- Zoom image Plugin -->
-  <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
+  <script src="./js/docsify.min.js"></script>
+  <script src="./js/zoom-image.min.js"></script>
+  <script src="./js/search.min.js"></script>
+  <script src="./js/prism-bash.js"></script>
+  <script>
+    Prism.languages.shell = Prism.languages.bash
+  </script>
 </body>
 
 </html>
