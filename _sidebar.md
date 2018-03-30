@@ -1,22 +1,31 @@
+- **基础**
 - [介绍](introduction)
 - [起步](getting-started)
-- [Vue 实例](instance)
-- [数据绑定](data-binding)
-- [指令](direvtives)
-- [计算属性computed和监视watch](computed-and-watch)
-- [Class 与 Style 绑定](class-and-style)
-- [条件渲染](conditional)
-- [列表渲染](list)
-- [事件处理](events)
-- [表单控件绑定](forms)
+- [模板语法](template-syntax)
 - [基础案例：TodoMVC](todomvc-vue)
+
+- **组件**
 - [组件](component)
+
+- **过渡&动画**
 - [过渡 & 动画](transitions)
-- [与服务端通信](ajax-vue)
+
+- **与服务端通信**
+- [axios](ajax-vue)
+
+- **路由**
 - [Vue Router](vue-router)
+
 - [CRUD 案例](component-ajax-route-case)
 - [表单校验](form-validation)
+
+- **前端工程化**
 - [webpack](webpack)
-- [开发与调试](dev-and-debug)
+
+- **开发与调试**
+- [Devtools](devtools)
+
+- **Vuex**
 - [Vuex](vuex)
-- [API 接口文档](api)
+
+- **其它**
