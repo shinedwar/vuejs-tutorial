@@ -1,7 +1,3 @@
----
-typora-copy-images-to: ipic
----
-
 - 搜索是什么
 - 看官网能干什么
 - 探索怎么用
@@ -11,12 +7,14 @@ typora-copy-images-to: ipic
 ## 安装
 
 - Vue.js 不支持 IE8 及其以下版本
-- 最新稳定版本：2.5.10
-- 每个版本的更新日志见 [Github](https://github.com/vuejs/vue/releases)
+- 最新稳定版本：2.5.16
+- 每个版本的更新日志见 [Github Releases](https://github.com/vuejs/vue/releases)
 - 直接下载
-  + 未压缩版：https://vuejs.org/js/vue.js
-  + 压缩版：https://vuejs.org/js/vue.min.js
-- 使用 `npm` 下载
+  + 开发版本：https://vuejs.org/js/vue.js
+  + 生产版本：https://vuejs.org/js/vue.min.js
+- CDN
+  - `<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>`
+- 使用 `npm` 下载（默认安装最新稳定版）
   + `npm install vue`
 
 ---
@@ -28,7 +26,7 @@ typora-copy-images-to: ipic
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Hello World</title>
 </head>
 <body>
   <div id="app">

@@ -1,13 +1,3 @@
----
-typora-copy-images-to: ipic
----
-
-## 单页面应用程序
-
-- Single Page Application
-
----
-
 ## 是什么
 
 > 参考文档：https://cn.vuejs.org/v2/guide/index.html
@@ -33,15 +23,14 @@ typora-copy-images-to: ipic
 Vue 是为了克服 HTML 在构建应用上的不足而设计的。Vue 有着诸多特性，最为核心的是：
 
 - 简单易用
-- 渐进式
+- 灵活渐进式
 - 高效
   - 压缩之后仅 20kb 大小
   - 虚拟 DOM
 
 
-- MVVM
-- 双向数据绑定
-- 组件化
+- **MVVM**
+- **组件化**
 
 ---
 
@@ -61,17 +50,11 @@ Vue 是为了克服 HTML 在构建应用上的不足而设计的。Vue 有着诸
 
 > [Github 发布记录](https://github.com/vuejs/vue/releases)
 
-在为AngularJS工作之后，Vue的作者尤雨溪开发出了这一框架。
-他声称自己的思路是提取Angular中为自己所喜欢的部分，构建出一款相当轻量的框架。
-[8]Vue最早发布于2014年2月。
-作者在Hacker News、Echo JS与Reddit的/r/javascript版块发布了最早的版本。
-一天之内，Vue就登上了这三个网站的首页。[9]Vue是Github上最受欢迎的开源项目之一。
-同时，在JavaScript框架/函数库中，Vue所获得的星标数仅次于React，高于Backbone.js、Angular 2、jQuery等项目。
-
 - Vue.js 由尤雨溪个人正式发布于2014年2月，并开源于 Github
 - 2015年10月27日，正式发布 `1.0`
 - 2016年8月1 日，正式发布 `2.0`
-- 截止到 2017-12-13 最新版本为 `2.5.10`
+- 截止到 2018-3-30 目前最新版本为 `2.5.16`
+- 目前已在 Github 收获 80k+ Star
 
 ---
 
