@@ -1,7 +1,5 @@
 ## 是什么
 
-> 参考文档：https://cn.vuejs.org/v2/guide/index.html
-
 以下引自官网原话：
 
 > Vue.js (读音 /vjuː/，类似于 view) 是一套构建用户界面的渐进式框架。
@@ -24,11 +22,9 @@ Vue 是为了克服 HTML 在构建应用上的不足而设计的。Vue 有着诸
 
 - 简单易用
 - 灵活渐进式
-- 高效
+- 轻量高效
   - 压缩之后仅 20kb 大小
   - 虚拟 DOM
-
-
 - **MVVM**
 - **组件化**
 
@@ -66,8 +62,6 @@ Vue 是为了克服 HTML 在构建应用上的不足而设计的。Vue 有着诸
 - [Vue 官方 API 参考文档](https://cn.vuejs.org/v2/api/)
 - [Vue 官方示例](https://cn.vuejs.org/v2/examples/)
 - [awesome-vue](https://github.com/vuejs/awesome-vue)
-
-> 不要买书，基本都是官方文档抄过来的，而且都是过时的 API，以官方文档为准。
 
 ---
 

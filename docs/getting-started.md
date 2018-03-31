@@ -43,10 +43,7 @@
   </script>
 </body>
 </html>
-
 ```
-
-
 
 ---
 
@@ -57,26 +54,33 @@
 - methods
 - ...
 
-## 数据绑定
+## 文本绑定
 
 - `{{data}}`
-- `v-html`
+
+## 属性绑定
+
 - `v-bind`
 
 ---
 
-## 双向数据绑定（表单控件）
+## 表单控件双向数据绑定
 
 - `text`
+- `textarea`
 - `checkbox`
+- `radio`
+- `select`
 - ...
 
 ---
 
-## 条件与循环
+## 条件渲染
 
 - `v-if`
-- `v-show`
+
+## 列表渲染
+
 - `v-for`
 
 ---
@@ -84,10 +88,6 @@
 ## 事件处理
 
 - `v-on`
-
----
-
-## 组件化
 
 ---
 
@@ -107,12 +107,13 @@
 - 根据视图抽象数据模型
   + 数据
   + 行为
+- 数据改变，触发视图更新
 
 ---
 
 ## 综合案例：`Todo List`
 
-![BAF13840-8FB9-41B4-950F-8C459303C8CE](https://ws3.sinaimg.cn/large/006tNc79ly1fmg8eok0zij30gm0cy0ti.jpg)
+![](getting-started/getting-started0.png)
 
 - 任务列表展示
 - 添加任务
