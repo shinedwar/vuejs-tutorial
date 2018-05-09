@@ -10,7 +10,7 @@ npm run docs:build
 cd docs/.vuepress/dist
 
 # 如果是发布到自定义域名
-# echo 'www.example.com' > CNAME
+echo 'vuejs.circle.ink' > CNAME
 
 git config --global user.email "lpzmail@163.com"
 git config --global user.name "lipengzhou"
