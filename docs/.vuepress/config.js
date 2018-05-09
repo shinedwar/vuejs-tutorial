@@ -4,7 +4,6 @@ module.exports = {
   description: 'Vue.js 入门教程',
   host: '0.0.0.0',
   port: 8080,
-  dest: '.vuepress/dist',
   themeConfig: {
     repo: 'lipengzhou/vuejs-tutorial',
     nav: [
