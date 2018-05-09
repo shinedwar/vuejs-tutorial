@@ -1,30 +1,16 @@
 {
   "name": "vuejs-tutorial",
   "version": "1.0.0",
-  "description": "vuejs tutorial",
-  "main": "index.html",
-  "directories": {
-    "doc": "docs"
-  },
+  "main": "index.js",
+  "repository": "https://github.com/lipengzhou/vuejs-tutorial.git",
+  "author": "lipengzhou <lpzmail@163.com>",
+  "license": "MIT",
   "scripts": {
-    "start": "npm run doc",
-    "doc": "docsify serve --port 5000"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lipengzhou/vuejs-tutorial.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lipengzhou/vuejs-tutorial/issues"
-  },
-  "homepage": "https://github.com/lipengzhou/vuejs-tutorial#readme",
-  "dependencies": {
-    "vue": "^2.5.11"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "start": "npm run docs:dev"
   },
   "devDependencies": {
-    "docsify-cli": "^4.1.12"
+    "vuepress": "^0.8.4"
   }
 }

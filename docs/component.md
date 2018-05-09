@@ -10,13 +10,13 @@ Element 是基于 Vue 开发的一个知名的第三方组件库，它能帮助�
 
 安装：
 
-```shell
+```
 npm i element-ui
 ```
 
 Hello World:
 
-```html
+```
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,20 +61,20 @@ Hello World:
 
 注册：
 
-```javascript
+```
 Vue.component('my-component', {
   template: '<div>A custom component!</div>'
-})
+});
 
 // 创建根实例
 new Vue({
   el: '#example'
-})
+});
 ```
 
 在模板中使用组件：
 
-```html
+```
 <div id="example">
   <my-component></my-component>
 </div>
@@ -82,7 +82,7 @@ new Vue({
 
 渲染结果：
 
-```html
+```
 <div id="example">
   <div>A custom component!</div>
 </div>
@@ -94,7 +94,7 @@ new Vue({
 
 注册：
 
-```javascript
+```
 new Vue({
   // ...
   components: {
@@ -103,12 +103,12 @@ new Vue({
       template: '<div>A custom component!</div>'
     }
   }
-})
+});
 ```
 
 使用：
 
-```html
+```
 <div id="example">
   <div>A custom component!</div>
 </div>
@@ -126,17 +126,17 @@ new Vue({
 
 构造 Vue 实例时传入的各种选项大多数都可以在组件里使用。只有一个例外：data 必须是函数。
 
-```javascript
+```
 Vue.component('simple-counter', {
   template: '<button v-on:click="counter += 1">{{ counter }}</button>',
   data: function () {
     return { counter: 0 }
   }
-})
+});
 
 new Vue({
   el: '#example-2'
-})
+});
 ```
 
 ### 组件的作用域是独立的
@@ -155,7 +155,7 @@ new Vue({
 
 ## 组件化构建 TodoMVC
 
-![todomvc-component.png](../media/todomvc-component.png)
+![todomvc-component.png](media/todomvc-component.png)
 
 ---
 
@@ -163,35 +163,35 @@ new Vue({
 
 **1. 在父组件中通过子组件标签属性传递数据**
 
-```html
+```
 <child message="hello!"></child>
 ```
 
 **2. 在子组件显式地用 `props` 选项声明它预期的数据并使用**
 
-```javascript
+```
 Vue.component('child', {
   // 声明 props
   props: ['message'],
   // 就像 data 一样，prop 也可以在模板中使用
   // 同样也可以在 vm 实例中通过 this.message 来使用
   template: '<span>{{ message }}</span>'
-})
+});
 ```
 
 ### camelCase vs. kebab-case
 
 HTML 特性是不区分大小写的。所以，当使用的不是字符串模板时，camelCase (驼峰式命名) 的 prop 需要转换为相对应的 kebab-case (短横线分隔式命名)。
 
-```javascript
+```
 Vue.component('child', {
   // 在 JavaScript 中使用 camelCase
   props: ['myMessage'],
   template: '<span>{{ myMessage }}</span>'
-})
+});
 ```
 
-```html
+```
 <!-- 在 HTML 中使用 kebab-case -->
 <child my-message="hello!"></child>
 ```
@@ -202,7 +202,7 @@ Vue.component('child', {
 
 与绑定到任何普通的 HTML 特性相类似，我们可以用 `v-bind` 来动态地将 `prop` 绑定到父组件的数据。每当父组件的数据变化时，该变化也会传导给子组件：
 
-```html
+```
 <div>
   <input v-model="parentMsg">
   <br>
@@ -212,7 +212,7 @@ Vue.component('child', {
 
 你也可以使用 v-bind 的缩写语法：
 
-```html
+```
 <child :my-message="parentMsg"></child>
 ```
 
@@ -221,14 +221,14 @@ Vue.component('child', {
 
 初学者常犯的一个错误是使用字面量语法传递数值：
 
-```html
+```
 <!-- 传递了一个字符串 "1" -->
 <comp some-prop="1"></comp>
 ```
 
 因为它是一个字面量 prop，它的值是字符串 "1" 而不是一个数值。如果想传递一个真正的 JavaScript 数值，则需要使用 v-bind，从而让它的值被当作 JavaScript 表达式计算：
 
-```html
+```
 <!-- 传递真正的数值 -->
 <comp v-bind:some-prop="1"></comp>
 ```
@@ -248,7 +248,7 @@ Prop 是单向绑定的：当父组件的属性变化时，将传导给子组件
 
 **1. 定义一个局部变量，并用 prop 的值初始化它：**
 
-```javascript
+```
 props: ['initialCounter'],
 data: function () {
   return { counter: this.initialCounter }
@@ -257,13 +257,14 @@ data: function () {
 
 **2. 定义一个计算属性，处理 prop 的值并返回：**
 
-```javascript
+```
+// ...
 props: ['size'],
 computed: {
   normalizedSize: function () {
     return this.size.trim().toLowerCase()
   }
-}
+},
 ```
 
 !> 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它会影响父组件的状态。
@@ -273,7 +274,7 @@ computed: {
 我们可以为组件的 prop 指定验证规则。如果传入的数据不符合要求，Vue 会发出警告。这对于开发给他人使用的组件非常有用。
 要指定验证规则，需要用对象的形式来定义 prop，而不能用字符串数组：
 
-```javascript
+```
 Vue.component('example', {
   props: {
     // 基础类型检测 (`null` 指允许任何类型)
@@ -304,7 +305,7 @@ Vue.component('example', {
       }
     }
   }
-})
+});
 ```
 
 `type` 可以是下面原生构造器：
@@ -330,7 +331,7 @@ type 也可以是一个自定义构造器函数，使用 instanceof 检测。
 
 **1. 在子组件中调用 `$emit()` 方法发布一个事件**
 
-```javascript
+```
 Vue.component('button-counter', {
   template: '<button v-on:click="incrementCounter">{{ counter }}</button>',
   data: function () {
@@ -345,12 +346,12 @@ Vue.component('button-counter', {
       this.$emit('increment')
     }
   },
-})
+});
 ```
 
 **2. 在父组件中提供一个子组件内部发布的事件处理函数**
 
-```javascript
+```
 new Vue({
   el: '#counter-event-example',
   data: {
@@ -361,12 +362,12 @@ new Vue({
       this.total += 1
     }
   }
-})
+});
 ```
 
 **3. 在使用子组件的模板的标签上订阅子组件内部发布的事件**
 
-```html
+```
 <div id="counter-event-example">
   <p>{{ total }}</p>
   <!-- 
@@ -381,7 +382,7 @@ new Vue({
 
 有时候，你可能想在某个组件的根元素上监听一个原生事件。可以使用 `v-on` 的修饰符 `.native`。例如：
 
-```html
+```
 <my-component v-on:click.native="doTheThing"></my-component>
 ```
 
@@ -392,14 +393,14 @@ new Vue({
 
 在使用子组件的时候加上 `.sync` 修饰符：
 
-```html
+```
 <comp :foo.sync="bar"></comp>
 ```
 
 在子组件内部更新 `foo` 的值时，显示的触发一个更新事件：
 
-```javascript
-this.$emit('update:foo', newValue)
+```
+this.$emit('update:foo', newValue);
 ```
 
 ---
@@ -408,20 +409,20 @@ this.$emit('update:foo', newValue)
 
 有时候，非父子关系的两个组件之间也需要通信。在简单的场景下，可以使用一个空的 Vue 实例作为事件总线：
 
-```javascript
-var bus = new Vue()
+```
+var bus = new Vue();
 ```
 
-```javascript
+```
 // 触发组件 A 中的事件
-bus.$emit('id-selected', 1)
+bus.$emit('id-selected', 1);
 ```
 
-```javascript
+```
 // 在组件 B 创建的钩子中监听事件
 bus.$on('id-selected', function (id) {
   // ...
-})
+});
 ```
 
 ---
