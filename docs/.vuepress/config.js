@@ -1,3 +1,3 @@
 module.exports = {
-  base: '/vuejs-tutorial/'
+  // base: '/vuejs-tutorial/'
 }
