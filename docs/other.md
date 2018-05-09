@@ -29,3 +29,4 @@ Make sure you are using Node 6+ and NPM 3+
 
 - 1
 - 2
+- 3
