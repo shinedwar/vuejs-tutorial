@@ -21,6 +21,9 @@ jobs: # a collection of steps
           key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - node_modules/
+      - add_ssh_keys:
+          fingerprints:
+            - "4b:55:2e:b9:3d:8a:97:74:e1:5b:4c:a9:d1:6d:29:3d"
       - run:
           name: deploy
           command: |
