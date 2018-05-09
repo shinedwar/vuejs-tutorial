@@ -5,9 +5,6 @@ jobs: # a collection of steps
     docker: # run the steps with Docker
       - image: circleci/node:8 # ...with this image as the primary container; this is where all `steps` will run
     steps: # a collection of executable commands
-      - add_ssh_keys:
-          fingerprints:
-            - "4b:55:2e:b9:3d:8a:97:74:e1:5b:4c:a9:d1:6d:29:3d"
       - checkout # special step to check out source code to working directory
       - restore_cache:
           name: Restore Yarn Package Cache
