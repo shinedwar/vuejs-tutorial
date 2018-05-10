@@ -28,9 +28,6 @@ jobs: # a collection of steps
           fingerprints:
             - "4b:55:2e:b9:3d:8a:97:74:e1:5b:4c:a9:d1:6d:29:3d"
       - run:
-          name: test
-          command: echo "test"
-      - run:
           name: deploy
           command: |
             chmod +x ./deploy.sh
