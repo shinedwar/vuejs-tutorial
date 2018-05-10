@@ -28,7 +28,3 @@ Make sure you are using Node 6+ and NPM 3+
 ![](dev-and-debug/dev-and-debug0.png)
 
 - 1
-- 2
-- 3
-- 4
-- 5
