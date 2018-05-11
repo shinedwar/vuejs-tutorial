@@ -271,3 +271,29 @@ computed: {
 ```
 
 ## 持久化存储
+
+```javascript{6,12}
+...
+new Vue({
+  ...
+  data: {
+    ...
+    todos: JSON.parse(window.localStorage.getItem('todos') || '[]')
+    ...
+  },
+  ...
+  watch: {
+    ...
+    todos: {
+      handler () { // 固定的 handler ，当 todos 发生改变会自动调用 handler 方法
+        // 本地存储只能存储字符串，所以这里要把数组转成字符串再存储
+        window.localStorage.setItem('todos', JSON.stringify(this.todos))
+      },
+      deep: true // deep 配置为 true 表示深度监视
+    }
+    ...
+  },
+  ...
+})
+...
+```
