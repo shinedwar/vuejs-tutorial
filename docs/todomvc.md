@@ -188,8 +188,86 @@ methods: {
 ...
 ```
 
+## 删除所有已完成任务
+
+```html{4}
+...
+<button
+  class="clear-completed"
+  @click="handleClearAllDone">Clear completed</button>
+...
+```
+
+```javascript{4}
+...
+methods: {
+  ...
+  handleClearAllDone () {
+    for (let i = 0; i < this.todos.length; i++) {
+      const item = this.todos[i]
+      if (item.done === true) {
+        this.todos.splice(i, 1)
+        i-- // 在遍历过程中删除元素之后，让索引减一次，防止有漏网之鱼
+      }
+    }
+  },
+  ...
+}
+...
+```
+
 ## 显示所有剩余未完成任务数
 
-## 删除所有已完成任务
+方法方式：
+
+```html{2}
+...
+<span class="todo-count"><strong>{{ getRemaining() }}</strong> item left</span>
+...
+```
+
+```javascript{4}
+...
+methods: {
+  ...
+  getRemaining () {
+    let count = 0
+    this.todos.forEach(item => {
+      if (item.done === false) {
+        count++
+      }
+    })
+    return count
+  }
+  ...
+}
+...
+```
+
+计算属性方法：
+
+```html{2}
+...
+<strong>{{ remaining }}</strong> item left</span>
+...
+```
+
+```javascript{4}
+...
+computed: {
+  ...
+  remaining () {
+    let count = 0
+    this.todos.forEach(item => {
+      if (item.done === false) {
+        count++
+      }
+    })
+    return count
+  }
+  ...
+}
+...
+```
 
 ## 持久化存储
