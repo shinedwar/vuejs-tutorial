@@ -1,15 +1,10 @@
 > 学习目标：
-> - 通过该案例强化数据驱动视图（MVVM）思想
 > - 掌握 Vue 中常用的实例选项
-> - 掌握 Vue 常用内置指令
-> - 掌握 Vue 自定义指令
-> - 掌握 Vue 中的计算属性
+> - 掌握 Vue 常用指令
 
 ## 案例介绍
 
 - [TodoMVC](http://todomvc.com/)
-
-![](./media/todomvc-vue0.png)
 
 ---
 
@@ -42,15 +37,158 @@ npm install
 
 ## 任务列表
 
+```html{2,15}
+...
+<template v-if="todos.length > 0">
+  <section class="main">
+    <input
+      id="toggle-all"
+      class="toggle-all"
+      type="checkbox"
+      v-bind:checked="getToggleAllStatus()"
+      @change="handleToggleAll">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul class="todo-list">
+      <!-- These are here just to show the structure of the list items -->
+      <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+      <li
+        v-for="(item, index) in todos"
+        v-bind:class="{completed: item.done}">
+        <div class="view">
+          <input class="toggle" type="checkbox" v-model="item.done">
+          <label>{{ item.title }}</label>
+          <button @click="handleRemoveTodo(index)" class="destroy"></button>
+        </div>
+        <input class="edit" value="Rule the web">
+      </li>
+    </ul>
+  </section>
+  <!-- This footer should hidden by default and shown when there are todos -->
+  <footer class="footer">
+    <!-- This should be `0 items left` by default -->
+    <span class="todo-count"><strong>0</strong> item left</span>
+    <!-- Remove this if you don't implement routing -->
+    <ul class="filters">
+      <li>
+        <a class="selected" href="#/">All</a>
+      </li>
+      <li>
+        <a href="#/active">Active</a>
+      </li>
+      <li>
+        <a href="#/completed">Completed</a>
+      </li>
+    </ul>
+    <!-- Hidden if no completed items are left ↓ -->
+    <button class="clear-completed">Clear completed</button>
+  </footer>
+</template>
+...
+```
+
 ## 添加任务
+
+```html{5}
+...
+<input
+  class="new-todo"
+  placeholder="What needs to be done?"
+  v-on:keyup.enter="handleAddTodo">
+...
+```
+
+```javascript{4}
+...
+methods: {
+  ...
+  handleAddTodo (e) {
+    const {target} = e // target 就是触发该事件的 DOM
+    const {value} = target
+    const {todos} = this
+
+    // 拿到数组最后一个元素的 id + 1 就可以得到一个唯一不重复的 id
+    // 当数组是空的时候根本就没有最后一项，所以 todos[todos.length - 1] 的结果就是 undefined
+    // undefined.id 不就报错了吗？
+    const lastTodo = todos[todos.length - 1]
+
+    // 如果有最后一个元素，则让该元素.id + 1，否则默认给个 1
+    const id = lastTodo ? lastTodo.id + 1 : 1
+
+    if (value.trim().length !== 0) {
+      this.todos.push({
+        id, // 当 key 和 value 名字一样的时候，可以简写, id 等价于 id: id
+        title: value,
+        done: false
+      })
+
+      // 操作 DOM 清空文本框
+      target.value = ''
+    }
+  },
+  ...
+}
+...
+```
 
 ## 切换所有任务的完成状态
 
-## 任务项
+```html{6,7}
+...
+<input
+  id="toggle-all"
+  class="toggle-all"
+  type="checkbox"
+  v-bind:checked="getToggleAllStatus()"
+  @change="handleToggleAll">
+...
+```
 
-## 显示所有剩余未完成任务数
+```javascript{4,11}
+...
+methods: {
+  ...
+  handleToggleAll (e) {
+    const checked = e.target.checked
+    this.todos.forEach((item) => {
+      item.done = checked
+    })
+  },
+
+  getToggleAllStatus () {
+    let status = true
+    this.todos.forEach(item => {
+      if (item.done === false) {
+        status = false
+      }
+    })
+    return status
+  },
+  ...
+}
+...
+```
 
 ## 删除单个任务
+
+```html{2}
+...
+<button @click="handleRemoveTodo(index)" class="destroy"></button>
+...
+```
+
+```javascript{4}
+...
+methods: {
+  ...
+  handleRemoveTodo (delIndex) {
+    this.todos.splice(delIndex, 1)
+  },
+  ...
+}
+...
+```
+
+## 显示所有剩余未完成任务数
 
 ## 删除所有已完成任务
 
