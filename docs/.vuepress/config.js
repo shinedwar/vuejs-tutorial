@@ -2,7 +2,7 @@ module.exports = {
   base: '/',
   title: 'Vue.js 入门教程',
   description: 'Vue.js - The Progressive JavaScript Framework',
-  host: '0.0.0.0',
+  // host: '0.0.0.0',
   port: 8080,
   themeConfig: {
     repo: 'lipengzhou/vuejs-tutorial',
