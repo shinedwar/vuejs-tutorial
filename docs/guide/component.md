@@ -1,3 +1,5 @@
+# 组件基础
+
 > 组件基础：
 > - 了解组件的概念
 > - 掌握组件的定义
@@ -162,7 +164,7 @@ new Vue({
 
 ## 组件化构建 TodoMVC
 
-![todomvc-component.png](media/todomvc-component.png)
+![todomvc-component.png](../media/todomvc-component.png)
 
 ---
 

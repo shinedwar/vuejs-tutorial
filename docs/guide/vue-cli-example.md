@@ -1,3 +1,5 @@
+# VueCLI+Vue+VueRouter 案例
+
 ## 开始
 
 ```bash
@@ -861,7 +863,7 @@ npm start
 
 启动成功，你将看到如下输出：
 
-![](./media/vue-cli-example-00.png)
+![](../media/vue-cli-example-00.png)
 
 ### 获取英雄列表
 

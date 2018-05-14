@@ -1,3 +1,5 @@
+# 其它
+
 ## Vue Devtools
 
 为了更方便的调试和观察 Vue 应用，我们可以使用 Vue 官方开发的一个浏览器插件：[Vue Devtools](https://github.com/vuejs/vue-devtools) 来辅助调试。
@@ -25,8 +27,4 @@ Make sure you are using Node 6+ and NPM 3+
 - 在 Web 服务器中打开你要调试的 Vue 应用
 - 打开开发人员工具，切换到 `Vue` 面板
 
-![](dev-and-debug/dev-and-debug0.png)
-
-- 1
-- 2
-- 3
+![](../media/dev-and-debug0.png)

@@ -1,3 +1,5 @@
+# 起步
+
 - 搜索是什么
 - 看官网能干什么
 - 探索怎么用
@@ -113,7 +115,7 @@
 
 ## 综合案例：`Todo List`
 
-![](getting-started/getting-started0.png)
+![](../media/getting-started0.png)
 
 - 任务列表展示
 - 添加任务
