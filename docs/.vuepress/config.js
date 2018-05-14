@@ -6,7 +6,7 @@ module.exports = {
   port: 8080,
   themeConfig: {
     repo: 'lipengzhou/vuejs-tutorial',
-    lastUpdated: '上次更新: ',
+    lastUpdated: '上次更新',
     docsDir: 'docs',
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',
