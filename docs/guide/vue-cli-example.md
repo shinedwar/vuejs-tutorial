@@ -863,7 +863,7 @@ npm start
 
 启动成功，你将看到如下输出：
 
-![](../media/vue-cli-example-00.png)
+![](README/README0.png)
 
 ### 获取英雄列表
 
@@ -1276,9 +1276,229 @@ export default {
 
 ## 编辑英雄
 
+### 创建编辑英雄组件并配置路由导航
+
+创建编辑英雄组件 `src/components/HeroEdit.vue`:
+
+```html
+<template>
+<div>
+  <div>
+    <h2 class="sub-header">Edit Hero</h2>
+    <form @submit.prevent="handleEdit">
+      <div class="form-group">
+        <label for="name">英雄名称</label>
+        <input type="text" class="form-control" id="name" v-model="hero.name">
+      </div>
+      <div class="form-group">
+        <label for="gender">英雄性别</label>
+        <input type="text" class="form-control" id="gender" v-model="hero.gender">
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+</div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      hero: {
+        name: '',
+        gender: ''
+      }
+    }
+  },
+  created () {
+  },
+
+  methods: {
+    handleEdit () {}
+  }
+}
+</script>
+
+<style>
+</style>
+
+```
+
+在 `src/main.js` 中增加路由表配置：
+
+```js
+// ...
+// ...
+
+import HeroEdit from './components/HeroEdit'
+
+// ...
+// ...
+
+// 配置路由表
+const appRouter = new VueRouter({
+  routes: [
+    {
+      path: '/foo',
+      component: Foo
+    },
+    {
+      path: '/bar',
+      component: Bar
+    },
+    {
+      path: '/heros',
+      component: HeroList
+    },
+    {
+      path: '/heros/add',
+      component: HeroAdd
+    },
+    {
+      // :id 表示动态的
+      // 在该路径中，:id 需要给一个具体的英雄的 id
+      // 也就是说
+      // /heros/edit/1、/heros/edit/2、/heros/edit/3、/heros/edit/4、/heros/edit/*
+      // 都会匹配到 HeroEdit 组件
+      // 然后我们就可以在 HeroEdit 组件中通过 this.$route.params 来获取这个 :id 的值了
+      // :xx 表示一种路径规则，用来给路径留坑的，需要起个名字
+      // 将来我就可以在被匹配到的组件中通过 this.$route.params.坑名 来获取这个值了
+      path: '/heros/edit/:heroId',
+      component: HeroEdit
+    }
+  ]
+});
+
+// ...
+// ...
+```
+
+修改 `src/components/HeriList.vue` 中点击列表项编辑的导航的链接：
+
+```html{8}
+<template>
+  ...
+  <tr v-for="item in heros">
+    <td>{{ item.id }}</td>
+    <td>{{ item.name }}</td>
+    <td>{{ item.gender }}</td>
+    <td>
+      <a v-bind:href="'#/heros/edit/' + item.id">edit</a>
+      &nbsp;&nbsp;
+      <a href="#" @click.prevent="handleDelete(item.id)">delete</a>
+    </td>
+  </tr>
+  ...
+</template>
+```
+
+点击编辑链接测试。
+
+### 显示被编辑的英雄信息
+
+`src/components/HeroEdit.vue`:
+
+```html
+<script>
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      hero: {
+        name: '',
+        gender: ''
+      }
+    }
+  },
+
+  // 我们可以在组件的 created 函数中使用 this.$route.params 获取动态路径 id
+  created () {
+    const {heroId} = this.$route.params
+    axios.get(`http://localhost:3000/heros/${heroId}`)
+      .then(res => {
+        if (res.status === 200) {
+          this.hero = res.data
+        }
+      })
+  },
+
+  methods: {
+    handleEdit () {}
+  }
+}
+</script>
+
+```
+
+### 完成编辑表单提交
+
+`src/components/HeroEdit.vue`:
+
+```html
+<script>
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      hero: {
+        name: '',
+        gender: ''
+      }
+    }
+  },
+
+  // 我们可以在组件的 created 函数中使用 this.$route.params 获取动态路径 id
+  created () {
+    const {heroId} = this.$route.params
+    axios.get(`http://localhost:3000/heros/${heroId}`)
+      .then(res => {
+        if (res.status === 200) {
+          this.hero = res.data
+        }
+      })
+  },
+
+  methods: {
+    handleEdit () {
+      axios.patch(`http://localhost:3000/heros/${this.hero.id}`, this.hero)
+        .then(res => {
+          if (res.status === 200) {
+            this.$router.push('/heros')
+          }
+        })
+    }
+  }
+}
+</script>
+```
+
 ---
 
 ## 使用 router-link 处理导航高亮
+
+`src/components/AppSidebar.vue`:
+
+```html
+<template>
+<div class="col-sm-3 col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+    <router-link to="/heros" tag="li" active-class="active">
+      <a>英雄管理</a>
+    </router-link>
+    <router-link to="/foo" tag="li" active-class="active">
+      <a>Go Foo</a>
+    </router-link>
+    <router-link to="/bar" tag="li" active-class="active">
+      <a>Go Bar</a>
+    </router-link>
+  </ul>
+</div>
+</template>
+```
 
 ---
 
