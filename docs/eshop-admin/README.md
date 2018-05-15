@@ -8,15 +8,33 @@ sidebar: auto
 
 ### 将 API Server 部署到本地
 
-- 创建一个名为 `itcast_mall` 的数据库
-- 将 `mydb.sql` 导入 `itcast_mall` 数据库中
-- 解压 `shop2-server.zip`
-- 将 `shop2-server/config/default.json` 文件中 `db_config` 修改为自己的配置信息
-- 打开终端，在 `shop2-server` 目录下执行 `npm start`
+1. 将接口服务项目下载到本地
+
+```bash
+git clone https://github.com/lipengzhou/shop-api.git
+```
+
+2. 创建一个数据库命名为 `shop`
+
+3. 将 `shop-api/shop.sql` 导入 `shop` 数据库中
+
+4. 将 `shop-api/config/default.json` 文件中的数据库连接信息 `db_config` 修改为自己的
+
+5. 安装第三方包并启动 API 服务
+
+```bash
+cd shop-api
+npm install
+npm start
+```
 
 执行完 `npm start` 命令之后，如果看到如下提示信息则说明部署成功。
 
-![xxx](../media/README0.png)
+![](./README/README0.png)
+
+::: tip
+以后每次开发的时候一定记得 npm start 把接口服务启动起来。
+:::
 
 ### API 接口文档
 
