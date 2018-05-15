@@ -38,7 +38,7 @@ npm start
 
 ### API 接口文档
 
-> http://shop-api.circle.ink/
+> [http://shop-api.circle.ink/](http://shop-api.circle.ink/)
 
 ### Postman 接口测试工具
 
@@ -53,59 +53,15 @@ npm start
 
 ### 使用 Vue CLI 初始化项目
 
-- 是什么
-- 解决什么问题
-- 如何使用
-
-**安装：**
-
 ```shell
 npm install -g vue-cli
-```
 
-**查看使用帮助：**
-
-```shell
-vue --help
-```
-
-```
-C:\Users\lpz\Desktop>vue --help
-
-  Usage: vue <command> [options]
-
-  Options:
-
-    -V, --version  output the version number
-    -h, --help     output usage information
-
-  Commands:
-
-    init           generate a new project from a template
-    list           list available official templates
-    build          prototype a new project
-    help [cmd]     display help for [cmd]
-```
-
-**基于 [webpack](https://github.com/vuejs-templates/webpack) 模板初始化项目：**
-
-```shell
 # 基于 webpack 模板初始化一个名称为 admin-vue 的项目
 vue init webpack admin-vue
-```
 
-![xxx](../media/README2.png)
-
-启动开发模式：
-
-```shell
 cd admin-vue
-yarn run dev
+npm run dev
 ```
-
-![xxx](../media/README3.png)
-
-在浏览器中打开 `http://localhost:8080/` 访问测试。
 
 ### 项目结构介绍
 
@@ -113,56 +69,28 @@ yarn run dev
 
 ```
 .
-├── build
-├── config
-├── node_modules
-├── src
-│   ├── assets
-│   ├── common 存储一些公共的业务组件
-│   ├── components
+├── build   webpack打包相关配置文件目录
+├── config  webpack打包相关配置文件目录
+├── node_modules  第三方包
+├── src  源代码
+│   ├── assets  存放一些静态资源，例如 css、img、fonts
+│   ├── components  业务组件
 │   ├── router
-│   ├── App.vue
-│   └── main.js
-├── static
-│   └── .gitkeep
-├── .babelrc
-├── .editorconfig
-├── .eslintignore
-├── .eslintrc.js
-├── .gitignore
-├── index.html
-├── package.json
-├── package-lock.json
-├── .postcssrc.js
-└── README.md
-```
-
-```
-build   webpack打包相关配置文件目录
-config  webpack打包相关配置文件目录
-docs  我们自己添加的文档目录
-  开发文档.md  案例开发步骤文档
-  接口文档.md  后台 API 接口文档
-node_modules  第三发包
-src  项目源码
-  assegts  存储资源，例如 css、img、fonts
-  components  存储所有组件
-  router  路由
-    index.js  路由配置文件
-  App.vue  单页面应用程序的根组件
-  main.js  开机键，负责把根组件替换到根节点
-static  可以放一些静态资源
-  .gitkeet  没啥用，用来充当一个文件就可以提交我们的 static 目录，未来有了其它文件可以把它删掉
-.babelrc  es6转es5配置文件，给 babel 编译器用的
-.editorconfig  给编辑器看的
-.eslintignore  给eslint代码风格校验工具使用的，用来配置忽略代码风格校验的文件或是目录
-.eslintrc.js  给eslint代码风格校验工具使用的，用来配置代码风格校验规则
-.gitignore  给git使用的，用来配置忽略上传的文件
-.postcssrc.js  给postcss用的，postcss类似于 less、sass 预处理器
-index.html  单页面应用程序的单页
-package-lock.json  锁定第三方包的版本，以及保存包的下载地址
-package.json  项目说明，用来保存依赖项等信息
-REAMDE.md  项目说明文档
+│   ├── └── index.js  路由配置文件
+│   ├── App.vue  根组件
+│   └── main.js  项目启动入口文件
+├── static  静态资源
+│   └── .gitkeep  没啥用，用来充当一个文件就可以提交我们的 static 目录，未来有了其它文件可以把它删掉
+├── .babelrc  es6转es5配置文件，给 babel 编译器用的
+├── .editorconfig  给编辑器看的
+├── .eslintignore  给eslint代码风格校验工具使用的，用来配置忽略代码风格校验的文件或是目录
+├── .eslintrc.js  给eslint代码风格校验工具使用的，用来配置代码风格校验规则
+├── .gitignore  给git使用的，用来配置忽略上传的文件
+├── index.html  单页面应用程序的单页
+├── package.json  项目说明，用来保存依赖项等信息
+├── package-lock.json  锁定第三方包的版本，以及保存包的下载地址
+├── .postcssrc.js  给postcss用的，postcss类似于 less、sass 预处理器
+└── README.md  项目说明文档
 ```
 
 ### 代码风格
@@ -205,19 +133,7 @@ git remote add origin https://github.com/你的GitHub用户名/admin-vue.git
 git push -u origin master
 ```
 
-### Git 工作流程
-
-[阮一峰 - Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)
-
-### 拉出分支开始工作吧
-
-- 功能性分支
-- dev-login
-- feat-login
-- 功能分支开发完成之后测试没问题了合并到 master 分支
-- 之后就可以删除掉特性分支
-
-### 使用 axios 结合 async 函数发起登陆请求处理
+### 使用 axios 发起登陆请求处理
 
 ### 导入 ElementUI
 
