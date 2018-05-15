@@ -47,6 +47,36 @@ npm start
 - 下载安装
 - 使用
 
+### yarn
+
+```bash
+# npm init
+yarn init
+
+# npm init -y
+yarn init -y
+
+# npm install 包名
+yarn add 包名
+
+# npm install 包名@版本号
+yarn add 包名@版本号
+
+# npm uninstall 包名
+yarn remove 包名
+
+# npm install
+yarn install 或者 yarn
+```
+
+::: tip
+使用 yarn 管理第三方包会在项目目录中生成一个 `yarn.lock`，它的作用类似于 `package-lock.json`
+:::
+
+::: danger
+注意：不要在项目中一会儿使用 yarn 一会儿使用 npm，会导致一些包的重新安装。
+:::
+
 ---
 
 ## 一、起步
@@ -54,11 +84,22 @@ npm start
 ### 使用 Vue CLI 初始化项目
 
 ```shell
+# 如果已经安装过了则不需要重新安装
 npm install -g vue-cli
 
 # 基于 webpack 模板初始化一个名称为 admin-vue 的项目
 vue init webpack admin-vue
+```
 
+![](./README/README1.png)
+
+::: tip
+如果装包的过程长时间不动，建议 `Ctrl+c` 打断安装，自己手动在该项目中执行 `npm install`
+:::
+
+启动开发模式：
+
+```bash
 cd admin-vue
 npm run dev
 ```
@@ -112,6 +153,55 @@ npm run dev
   - 避免无意中使用到了这些命名看上去很普通的全局变量， `open`, `length`, `event` 还有 `name`。
 
 说了那么多，看看[这个遵循了 Standard 规范的示例文件](https://github.com/expressjs/body-parser/blob/master/index.js) 中的代码吧。或者，这里还有[一大波使用了此规范的项目](https://raw.githubusercontent.com/standard/standard-packages/master/all.json) 代码可供参考。
+
+### 自定义代码规范
+
+我们项目中所使用的 [JavaScript Standard Style]() 代码规范是由大部分开发者所认可约定的。但是也难免有些开发者不喜欢，所以说规范虽然是死的，但是人是活的，我们可以按照自己的喜欢对原有规范做一些适当调整用以满足我们自己的风格。
+
+我们可以通过修改 ESLint 的配置文件 `.eslintrc.js` 中的 `rules` 来修改定制自己的规则。
+
+```js
+module.exports = {
+  // ...
+  // ...
+  rules: {
+    '规范名称': 规则状态,
+    // allow async-await
+    'generator-star-spacing': 'off',
+    // allow debugger during development
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+  }
+}
+```
+
+规则的可选状态：
+
+- "off" or 0 - 关闭该规则校验
+- "warn" or 1 - 警告，但是不退出
+- "error" or 2 - 错误并退出
+
+我们也可以单独设定某一行代码的规范规则：
+
+```js
+/* eslint-disable */
+
+alert('foo');
+
+/* eslint-enable */
+```
+
+```js
+/* eslint-disable no-alert, no-console */
+
+alert('foo');
+console.log('bar');
+
+/* eslint-enable no-alert, no-console */
+```
+
+```
+alert('foo'); /* eslint-disable-line no-alert */
+```
 
 ### 加入 Git 版本控制
 
