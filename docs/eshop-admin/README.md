@@ -33,7 +33,7 @@ npm start
 ![](./README/README0.png)
 
 ::: tip
-以后每次开发的时候一定记得 npm start 把接口服务启动起来。
+以后每次开发的时候一定记得 `npm start` 把接口服务启动起来。
 :::
 
 ### API 接口文档
@@ -110,7 +110,7 @@ vue init webpack admin-vue
 ![](./README/README1.png)
 
 ::: tip
-如果装包的过程长时间不动，建议 `Ctrl+c` 打断安装，自己手动在该项目中执行 `npm install`
+如果装包的过程长时间不动，建议 `Ctrl + C` 打断安装，自己手动在该项目中执行 `npm install`
 :::
 
 启动开发模式：
@@ -181,7 +181,6 @@ module.exports = {
   // ...
   // ...
   rules: {
-    '规范名称': 规则状态,
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development
@@ -190,13 +189,33 @@ module.exports = {
 }
 ```
 
-规则的可选状态：
+`rules` 是一个对象，其中对象的键为代码规则的代号，值为校验该规则的级别状态。
 
-- "off" or 0 - 关闭该规则校验
-- "warn" or 1 - 警告，但是不退出
-- "error" or 2 - 错误并退出
+规则的校验级别状态可以被设置为：
 
-我们也可以单独设定某一行代码的规范规则：
+- "off" or 0 - 关闭不校验
+- "warn" or 1 - 警告
+- "error" or 2 - 错误
+
+例如我们修改校验规则必须有分号：
+
+```js
+module.exports = {
+  // ...
+  // ...
+  rules: {
+    // allow async-await
+    'generator-star-spacing': 'off',
+    // allow debugger during development
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'semi': ['error', 'always']
+  }
+}
+```
+
+完整版的校验规则列表参考，详见[官方文档 - Rules](https://eslint.org/docs/rules/)。
+
+也可以单独设定某一段代码的校验规则：
 
 ```js
 /* eslint-disable */
@@ -218,6 +237,10 @@ console.log('bar');
 ```
 alert('foo'); /* eslint-disable-line no-alert */
 ```
+
+> 参考链接：
+> - [Configuring Rules](https://eslint.org/docs/user-guide/configuring#configuring-rules)
+> - [Disabling Rules with Inline Comments](https://eslint.org/docs/user-guide/configuring#disabling-rules-with-inline-comments)
 
 ### 加入 Git 版本控制
 
