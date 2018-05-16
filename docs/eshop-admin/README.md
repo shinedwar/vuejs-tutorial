@@ -89,7 +89,7 @@ yarn install 或者 yarn
 使用 yarn 管理第三方包会在项目目录中生成一个 `yarn.lock`，它的作用类似于 `package-lock.json`
 :::
 
-::: warn
+::: warning
 建议在项目中只使用一种包管理工具，或者 npm 或者 yarn，不要两者混合使用，否则会导致包的混乱及重复安装反而降低了效率。
 :::
 
