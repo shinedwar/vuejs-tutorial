@@ -47,7 +47,23 @@ npm start
 - 下载安装
 - 使用
 
-### yarn
+### Yarn
+
+[Yarn](https://yarnpkg.com/) 是 Facebook 工程师开发的一个类似于 [npm](https://www.npmjs.com/) 的包管理工具。相比 npm ，Yarn 号称具有更好的功能特性。
+
+- 快速
+  + 并行下载
+  + Yarn 会缓存它下载的每个包，所以无需重复下载
+- 可靠
+  + Yarn会在每个安装包被执行前校验其完整性。
+- 安全
+  + Yarn 使用格式详尽而又简洁的 lockfile文件 和确定性算法来安装依赖，能够保证在一个系统上的运行的安装过程也会以同样的方式运行在其他系统上。
+
+下载及安装：
+
+> https://yarnpkg.com/zh-Hans/docs/install
+
+像使用 npm 一样来使用 yarn：
 
 ```bash
 # npm init
@@ -73,8 +89,8 @@ yarn install 或者 yarn
 使用 yarn 管理第三方包会在项目目录中生成一个 `yarn.lock`，它的作用类似于 `package-lock.json`
 :::
 
-::: danger
-注意：不要在项目中一会儿使用 yarn 一会儿使用 npm，会导致一些包的重新安装。
+::: warn
+建议在项目中只使用一种包管理工具，或者 npm 或者 yarn，不要两者混合使用，否则会导致包的混乱及重复安装反而降低了效率。
 :::
 
 ---
