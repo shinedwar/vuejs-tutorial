@@ -621,7 +621,9 @@ export default {
 
 ```
 
-### 布局 Home 组件
+## 三、Home 组件处理
+
+### 布局 Home 组件基本结构
 
 这里我们可以使用 Element 组件库中的 [Container 布局容器](http://element.eleme.io/#/zh-CN/component/container) 实现基本结构。
 
@@ -735,95 +737,83 @@ export default {
 这里我们使用的是 Element 组件库自带的 [Layout 布局](http://element.eleme.io/#/zh-CN/component/layout) 来完成 Header 组件基本样式结构。
 
 ```html
-<el-header class="header">
-  <el-row>
-    <el-col :span="4"><div class="grid-content bg-purple"><img src="./logo.png" alt=""></div></el-col>
-    <el-col :offset="16" :span="4"><div class="grid-content bg-purple"><a href="#">退出</a></div></el-col>
-  </el-row>
-</el-header>
+<template>
+<el-container class="container">
+  <el-header class="header">
+    <el-row>
+      <el-col :span="4">
+        <img src="./logo.png" alt="黑马程序员">
+      </el-col>
+      <el-col :span="16">电商后台管理系统</el-col>
+      <el-col :span="4">
+        <a href="#">退出</a>
+      </el-col>
+    </el-row>
+  </el-header>
+  ... 代码略
 ```
 
-### 用户退出
+### 处理用户退出
 
-1. 清空本地存储中的用户身份标识
-2. 跳转到登陆组件
+首先为顶部的退出按钮注册一个点击事件处理函数：
+
+```html
+<el-container class="container">
+  <el-header class="header">
+    <el-row>
+      <el-col :span="4">
+        <img src="./logo.png" alt="黑马程序员">
+      </el-col>
+      <el-col :span="16">电商后台管理系统</el-col>
+      <el-col :span="4">
+        <a @click.prevent="handleLogout" href="#">退出</a>
+      </el-col>
+    </el-row>
+  </el-header>
+  ... 代码略
+```
+
+`methods` 中 `handleLogout` 具体实现：
 
 ```javascript
-logout () {
-  this.$confirm('确认退出吗?', '退出提示', {
+// ... 代码略
+handleLogout () {
+  this.$confirm('确认退出吗？', '退出提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
-  }).then(() => { // 点击确认执行 resolve 函数
-    // 1. 删除本地存储中的 Token 身份标识
-    window.localStorage.removeItem('admin-token')
-    // 2. 跳转到登陆视图
-    this.$router.push({
-      name: 'login'
-    })
+  }).then(() => { // 用户点击 确定 执行这里
+    // 1. 删除本地存储中的 token，也就是清除登陆状态
+    window.localStorage.removeItem('token')
+
+    // 2. 跳转到 /login
+    this.$router.push('/login')
+
     this.$message({
       type: 'success',
       message: '退出成功!'
     })
-  }).catch(() => {
-    // 点击取消的处理
+  }).catch(() => { // 用户点击 取消 执行这里
+    this.$message({
+      type: 'info',
+      message: '已取消退出'
+    })
   })
 }
-```
-## 封装 auth 模块处理用户登陆信息及token
-
-在 `src/assets/js/auth.js` 文件模块中：
-
-```javascript
-/**
- * @/assets/js/auth.js
- * 封装和用户授权相关函数
- */
-
-const userInfoKey = 'user-info'
-
-/**
- * 保存登陆用户信息到本地存储
- * @param  {Object} userInfo 用户登陆成功的信息对象
- * @return {undefined}     无返回值
- */
-export function saveUserInfo (userInfo = {}) {
-  window.localStorage.setItem(userInfoKey, JSON.stringify(userInfo))
-}
-
-/**
- * 从本地存储中获取当前登陆用户信息
- * @return {string} 当前登陆用户信息对象字符串
- */
-export function getUserInfo () {
-  return window.localStorage.getItem(userInfoKey)
-}
-
-/**
- * 获取本地存储中用户信息的 Token 令牌
- * @return {string} 用户的 Token 身份令牌
- */
-export function getToken () {
-  return JSON.parse(getUserInfo()).token
-}
-
-/**
- * 删除本地存储中的用户登陆信息
- * @return {undefined} 无返回值
- */
-export function removeUserInfo () {
-  window.localStorage.removeItem(userInfoKey)
-}
-
+// ... 代码略
 ```
 
-接下来依次修改：
+---
 
-- 用户登陆成功，调用 `saveUserInfo()` 方法将服务端响应的用户信息对象存储到本地存储
-- 路由拦截器中，调用 `getUserInfo()` 获取用户信息用以判定是否已登录
-- 用户退出，调用 `removeUserInfo()` 删除本地存储中的用户信息
-- 用户列表组件获取用户列表数据，调用 `getToken()` 获取用户的身份标识用以访问需要授权的 API 接口
+## 四、用户列表
 
+### 添加用户列表组件并配置路由表
+
+### 布局用户列表组件
+
+### 发起请求加载用户列表
+
+---
 
 ## 将 axios 扩展为 Vue 插件
 
@@ -913,10 +903,6 @@ async created () {
   // ...代码略
 }
 ```
-
-## 配置侧边栏导航菜单
-
-> 参考文档：[Element - Navbar 导航菜单](http://element-cn.eleme.io/#/zh-CN/component/menu)
 
 ## 二、用户管理
 
