@@ -40,6 +40,29 @@ npm start
 
 > [http://shop-api.circle.ink/](http://shop-api.circle.ink/)
 
+### 部署预览完整版客户端
+
+```bash
+git clone https://gitee.com/lipengzhou/shop-admin-dist.git
+cd shop-amdin-dist
+
+# 或者 npm install
+yarn install
+
+# 或者 npm start
+yarn start
+```
+
+执行完 `yarn start` 命令之后会看到如下提示：
+
+![](./README/README2.png)
+
+::: tip
+执行 `yarn start` 命令之后默认开启的服务占用的端口号是 `8080`，如果 8080 被占用，则会 +1 依次向后使用，例如 8081、8082、8083...，以终端提示为准。
+:::
+
+打开浏览器访问终端中给出的服务地址。
+
 ### Postman 接口测试工具
 
 - 是什么，解决什么问题
