@@ -95,7 +95,7 @@ yarn install 或者 yarn
 
 ---
 
-## 一、起步
+## 一、项目初始化
 
 ### 使用 Vue CLI 初始化项目
 
@@ -262,12 +262,23 @@ git remote add origin https://github.com/你的GitHub用户名/admin-vue.git
 git push -u origin master
 ```
 
-### 从登陆开始
+## 二、从登陆开始
+
+### 基本登陆
 
 ### 使用路由导航守卫结合 token 处理视图访问拦截
 
 > 参考链接：
 > - [路由 - 导航守卫](https://router.vuejs.org/zh-cn/advanced/navigation-guards.html)
+
+```sequence
+title: 基于 Token 的验证流程
+participant 客户端 as client
+participant 服务器 as server
+client -> server: 用户名+密码
+server --> client: Token 令牌
+note over client: 将 Token 存储到本地
+```
 
 在 `src/components/login/script.js` 中登陆成功，将服务器下发的 `token` 保存到本地存储：
 
@@ -459,66 +470,6 @@ import './assets/css/index.css'
 
 ```
 
-`src/components/login/script.js`:
-
-```js
-import axios from 'axios'
-
-export default {
-  data () {
-    return {
-      loginForm: {
-        username: '',
-        password: ''
-      },
-      loginFromRule: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
-        ]
-      }
-    }
-  },
-
-  methods: {
-    handleLogin (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          axios.post('http://localhost:8888/api/private/v1/login', this.loginForm)
-            .then(res => {
-              const {data, meta} = res.data
-              const {msg, status} = meta
-
-              if (status === 200) {
-                // 将凭证放到到本地存储（会在路由守卫那里使用）
-                window.localStorage.setItem('token', data.token)
-
-                // 登陆成功，跳转到首页
-                this.$router.push('/')
-
-                // 给出消息提示
-                this.$message({
-                  message: '登陆成功',
-                  type: 'success'
-                })
-              } else if (status === 400) {
-                this.$message.error(msg)
-              }
-            })
-        }
-      })
-    },
-
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    }
-  }
-}
-
-```
-
 ### 为登陆组件加入表单验证
 
 1. 为表单中需要验证的表单项 `el-form-item` 声明 `prop` 属性，属性值给一个有意义的名称
@@ -672,9 +623,9 @@ export default {
 
 ### 布局 Home 组件
 
-这里我们可以使用 Element 组件库中的 [Container 布局容器(http://element.eleme.io/#/zh-CN/component/container) 实现基本结构。
+这里我们可以使用 Element 组件库中的 [Container 布局容器](http://element.eleme.io/#/zh-CN/component/container) 实现基本结构。
 
-在 `src/components/home/home.vue` 文件模板：
+`src/components/home/home.vue`：
 
 ```html
 <template>
@@ -686,30 +637,100 @@ export default {
     </el-container>
   </el-container>
 </template>
-```
 
-在 `src/components/home/home.vue` 组件样式：
+<script>
+export default {
+  data () {
+    return {}
+  }
+}
+</script>
 
-```css
-.container {
-  height: 100%;
+<style>
+.header {
+  background-color: #b3c1cd;
 }
 
-.header {
-  background-color: #B3C0D1;
+.container, .aside, .main, .aside .nav-menu {
+  height: 100%;
 }
 
 .aside {
-  background-color: #D3DCE6;
+  background-color: #d4dfe4;
 }
 
 .main {
-  background-color: #E9EEF3;
-  height: 100%;
+  background-color: #eaeef1;
 }
+</style>
 ```
 
-### 调整 Header 头部样式
+### 布局侧边栏
+
+`src/components/home/home.vue`：
+
+```html
+<template>
+<el-container class="container">
+  <el-header class="header">Header</el-header>
+  <el-container class="container">
+    <el-aside class="aside" width="200px">
+      <el-menu
+        default-active="2"
+        class="nav-menu"
+        unique-opened="true"
+        @open="handleOpen"
+        @close="handleClose"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b">
+        <el-submenu index="1">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>用户管理</span>
+          </template>
+          <el-menu-item index="1-1">用户列表</el-menu-item>
+        </el-submenu>
+        <el-submenu index="2">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>权限管理</span>
+          </template>
+          <el-menu-item index="2-1">角色列表</el-menu-item>
+          <el-menu-item index="2-2">权限列表</el-menu-item>
+        </el-submenu>
+        <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>商品管理</span>
+          </template>
+          <el-menu-item index="3-1">商品列表</el-menu-item>
+          <el-menu-item index="3-2">分类参数</el-menu-item>
+          <el-menu-item index="3-3">商品分类</el-menu-item>
+        </el-submenu>
+        <el-submenu index="4">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>订单管理</span>
+          </template>
+          <el-menu-item index="4-1">订单列表</el-menu-item>
+        </el-submenu>
+        <el-submenu index="5">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>数据统计</span>
+          </template>
+          <el-menu-item index="5-1">数据报表</el-menu-item>
+        </el-submenu>
+      </el-menu>
+    </el-aside>
+    <el-main class="main">Main</el-main>
+  </el-container>
+</el-container>
+</template>
+```
+
+### 布局 Header 头部
 
 这里我们使用的是 Element 组件库自带的 [Layout 布局](http://element.eleme.io/#/zh-CN/component/layout) 来完成 Header 组件基本样式结构。
 
@@ -722,104 +743,7 @@ export default {
 </el-header>
 ```
 
-## 校验登陆状态拦截视图导航
-
-```sequence
-title: 基于 Token 的验证流程
-participant 客户端 as client
-participant 服务器 as server
-client -> server: 用户名+密码
-server --> client: Token 令牌
-note over client: 将 Token 存储到本地
-```
-
-
-
-![xxx](../media/auth-token.png)
-
-在 `src/components/login/login` 组件中，用户登陆成功，将 Token 记录到本地存储中
-
-```javascript
-async login () {
-  // 1. 采集表单数据
-  // 2. 表单验证
-  // 3. 发请求执行登陆操作
-  // 4. 根据响应做交互
-  const res = await axios.post('http://localhost:8888/api/private/v1/login', this.userForm)
-  const data = res.data
-  if (data.meta.status === 200) {
-    // 登陆成功，将服务器签发给用户的 Token 身份令牌记录到 localStorage 中
-    // 其它需要使用 Token 的都去本地存储获取
-    window.localStorage.setItem('admin-token', JSON.stringify(data.data))
-    this.$router.push({
-      name: 'home'
-    })
-  }
-}
-```
-
-除登陆组件之外，都必须校验身份令牌，如果未登陆，则跳转到登陆组件。
-
-这里我们可以使用路由导航钩子来帮助我们完成这件事儿。
-
-在 `src/router/index.js` 路由中增加全局导航拦截权限认证：
-
-```javascript
-import Vue from 'vue'
-import Router from 'vue-router'
-import Login from '@/components/login/login' // @ 是 src 路径的别名，webpack 配置的
-import Home from '@/components/home/home' // @ 是 src 路径的别名，webpack 配置的
-
-Vue.use(Router)
-
-const router = new Router({
-  routes: [
-    {
-      name: 'login',
-      path: '/login',
-      component: Login
-    },
-    {
-      name: 'home',
-      path: '/',
-      component: Home
-    }
-  ]
-})
-
-// 1. 添加路由拦截器（导航钩子、守卫）
-//    接下来所有的视图导航都必须经过这道关卡
-//    一旦进入这道关卡，你得告诉路由守卫，
-//    to 我要去哪里
-//    from 我从哪儿来的
-//    next 用来放行的
-router.beforeEach((to, from, next) => { // 1. 添加全局路由导航守卫
-  // 2.
-  // 拿到当前请求的视图路径标识
-  // 2.1 如果是登陆组件，则直接放行通过
-  // 2.2 如果是非登陆组件，则检查 Token 令牌
-  //    2.2.1 有令牌就过去
-  //    2.2.2 无令牌，则让其登陆去
-  if (to.name === 'login') { // 2.1 如果是访问登陆组件，则让其通过
-    next()
-  } else {
-    // 检查登陆状态令牌
-    const token = window.localStorage.getItem('admin-token')
-    if (!token) { // 2.2.1 无令牌，则让其登陆去
-      next({
-        name: 'login'
-      })
-    } else { // 2.2.2 有令牌就允许通过
-      next()
-    }
-  }
-})
-
-export default router
-
-```
-
-## 用户退出
+### 用户退出
 
 1. 清空本地存储中的用户身份标识
 2. 跳转到登陆组件
