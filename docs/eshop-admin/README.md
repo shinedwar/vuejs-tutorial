@@ -359,10 +359,11 @@ new Vue({
 
 ### 布局登陆组件
 
-把公共样式写到 `src/assets/css/style.css` ：
+把公共样式写到 `src/assets/css/index.css` ：
 
 ```css
 html, body {
+  width: 100%;
   height: 100%;
 }
 
@@ -373,61 +374,133 @@ body {
 
 ```
 
-然后在 `src/main.js` 加载公共样式：
+然后在 `src/main.js` 加载：
 
 ```javascript
 // 代码略...
 
 // 引入我们的公共样式
-import './assets/css/style.css'
+import './assets/css/index.css'
 
 // 代码略...
 
 ```
 
-为了让登陆组件的背景色撑满，所以我们需要让他们的父盒子 `div#app` 高度设置为 `100%`。
+为了让登陆组件的背景色撑满，所以我们需要让它的父盒子 `div#app` 高度设置为 `100%`。
 
 所以我们在 `src/App.vue` ：
 
-```css
+```html
 <style>
 #app {
+  width: 100%;
   height: 100%;
 }
 </style>
 ```
 
-接下来我们开始调整 `src/components/login/login.vue` 组件样式：
+最后，我们分别调整登陆组件的HTML结构、JavaScript 行为、及CSS样式：
 
-- 注意：这里遵循一个原则，不要直接去使用 Element 组件自带的类名
-- 如果你想为 Element 组件添加自定义样式，那么建议你给它加你自己的类名来控制
+`src/components/login/template.html`:
+
+```html
+<div class="login-wrap">
+  <div class="login-form">
+    <el-form :model="loginForm" status-icon :rules="loginFromRule" ref="loginForm" class="demo-ruleForm">
+      <el-form-item prop="username">
+        <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="用户名"></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="密码"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="handleLogin('loginForm')">登陆</el-button>
+        <el-button @click="resetForm('loginForm')">重置</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</div>
+
+```
+
+`src/components/login/script.js`:
+
+```js
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      loginForm: {
+        username: '',
+        password: ''
+      },
+      loginFromRule: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+
+  methods: {
+    handleLogin (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          axios.post('http://localhost:8888/api/private/v1/login', this.loginForm)
+            .then(res => {
+              const {data, meta} = res.data
+              const {msg, status} = meta
+
+              if (status === 200) {
+                // 将凭证放到到本地存储（会在路由守卫那里使用）
+                window.localStorage.setItem('token', data.token)
+
+                // 登陆成功，跳转到首页
+                this.$router.push('/')
+
+                // 给出消息提示
+                this.$message({
+                  message: '登陆成功',
+                  type: 'success'
+                })
+              } else if (status === 400) {
+                this.$message.error(msg)
+              }
+            })
+        }
+      })
+    },
+
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
+  }
+}
+
+```
+
+`src/components/login/style.css`:
 
 ```css
-<style>
 .login-wrap {
-  background-color: #324152;
+  width: 100%;
   height: 100%;
+  background-color: #2d434c;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-wrap .login-from {
+.login-wrap .login-form {
   background-color: #fff;
-  width: 400px;
-  padding: 30px;
-  border-radius: 5px;
+  padding: 50px;
 }
 
-.login-wrap .login-from .login-btn {
-  width: 100%;
-}
-</style>
 ```
-
-
-
-
 
 ### 布局 Home 组件
 
