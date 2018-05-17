@@ -99,7 +99,7 @@ yarn install 或者 yarn
 
 ### 使用 Vue CLI 初始化项目
 
-```shell
+```bash
 # 如果已经安装过了则不需要重新安装
 npm install -g vue-cli
 
@@ -246,7 +246,7 @@ alert('foo'); /* eslint-disable-line no-alert */
 
 初始化本地仓库并完成一次提交。
 
-```shell
+```bash
 git init
 git status
 git add --all
@@ -257,32 +257,91 @@ git commit -m ":tada: Initial commit"
 
 将本地项目推送到 GitHub。
 
-```shell
+```bash
 git remote add origin https://github.com/你的GitHub用户名/admin-vue.git
 git push -u origin master
 ```
 
-### 使用 axios 发起登陆请求处理
+### 从登陆开始
+
+### 使用路由导航守卫结合 token 处理视图访问拦截
+
+> 参考链接：
+> - [路由 - 导航守卫](https://router.vuejs.org/zh-cn/advanced/navigation-guards.html)
+
+在 `src/components/login/script.js` 中登陆成功，将服务器下发的 `token` 保存到本地存储：
+
+```js
+// 其它代码...
+
+handleLogin () {
+  axios.post('http://localhost:8888/api/private/v1/login', this.loginForm)
+    .then(res => {
+      const {data, meta} = res.data
+      const {msg, status} = meta
+
+      // 将凭证放到到本地存储（会在路由守卫那里使用）
+      window.localStorage.setItem('token', data.token)
+
+      if (status === 200) {
+        this.$router.push('/')
+      } else if (status === 400) {
+        window.alert(msg)
+      }
+    })
+}
+
+// 其它代码...
+```
+
+在 `src/router/index.js` 中，添加全局路由导航守卫对非登陆请求进行登陆权限判定：
+
+```js
+// 其它代码...
+
+const router = new Router({
+  // ...
+})
+
+router.beforeEach((to, from, next) => {
+  const {path} = to
+  if (path !== '/login') { // 如果请求的不是 /login 则校验登陆状态
+    const token = window.localStorage.getItem('token')
+    if (!token) { // 如果没有 token 则让其跳转到 /login
+      next('/login')
+    } else { // 有 token，让其通过
+      next()
+    }
+  } else {
+    // 如果用户请求的就是 /login 则直接调用 next() 放行
+    next()
+  }
+})
+
+export default router
+
+```
 
 ### 导入 ElementUI
 
-> 参考文档：http://element-cn.eleme.io/#/zh-CN/component/quickstart
+> 参考链接：
+> - [Element 官网](http://element-cn.eleme.io)
 
 安装依赖：
 
-```shell
+```bash
 # 或者 npm install element-ui
 yarn add element-ui
 ```
 
-在 `src/main.js` 中加载使用：
+在 `src/main.js` 中加载并配置：
 
-```javascript
+```js{4,5,7}
 import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI)
 
