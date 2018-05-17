@@ -36,10 +36,6 @@ npm start
 以后每次开发的时候一定记得 `npm start` 把接口服务启动起来。
 :::
 
-### API 接口文档
-
-> [http://shop-api.circle.ink/](http://shop-api.circle.ink/)
-
 ### 部署预览完整版客户端
 
 ```bash
@@ -62,6 +58,10 @@ yarn start
 :::
 
 打开浏览器访问终端中给出的服务地址。
+
+### API 接口文档
+
+> [http://shop-api.circle.ink/](http://shop-api.circle.ink/)
 
 ### Postman 接口测试工具
 
