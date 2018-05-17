@@ -147,7 +147,7 @@ npm run dev
 
 ![xxx](../media/README4.png)
 
-```
+```text{5-11}
 .
 ├── build   webpack打包相关配置文件目录
 ├── config  webpack打包相关配置文件目录
@@ -889,6 +889,8 @@ const router = new Router({
 // ... 代码略
 
 ```
+
+3. 访问 `/users` 测试。
 
 ### 在用户列表中使用表格组件
 
