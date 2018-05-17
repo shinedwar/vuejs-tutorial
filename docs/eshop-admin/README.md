@@ -6,7 +6,7 @@ sidebar: auto
 
 ## 零、准备
 
-### 将 API Server 部署到本地
+### 部署 API 接口服务
 
 1. 将接口服务项目下载到本地
 
@@ -832,9 +832,236 @@ handleLogout () {
 
 ### 添加用户列表组件并配置路由表
 
-### 布局用户列表组件
+1. 分别创建下面的四个文件
 
-### 发起请求加载用户列表
+- `src/components/user-list/user-list.vue`
+- `src/components/user-list/template.html`
+- `src/components/user-list/script.js`
+- `src/components/user-list/style.css`
+
+`src/components/user-list/template.html`:
+
+```html
+<div>
+  <p>user-list component</p>
+</div>
+```
+
+`src/components/user-list/user-list.vue`:
+
+```html
+<template src="./template.html"></template>
+<script src="./script.js"></script>
+<style src="./style.css"></style>
+
+```
+
+2. 配置路由表
+
+`src/router/index.js`:
+
+```js{12-17}
+// ... 代码略
+
+const router = new Router({
+  routes: [
+    {
+      path: '/',
+      component: Home,
+      // 当渲染 children 组件的时候会先把 Home 组件渲染出来
+      // Home 组件找到根组件中的 router-view 出口替换渲染
+      // Home 组件的 children 子路由会渲染到 Home 组件内部的 router-view 出口
+      // 参考文档：https://router.vuejs.org/zh-cn/essentials/nested-routes.html
+      children: [
+        {
+          path: '/users',
+          component: UserList
+        }
+      ]
+    },
+    {
+      path: '/login',
+      component: Login
+    }
+  ]
+})
+
+// ... 代码略
+
+```
+
+### 在用户列表中使用表格组件
+
+> 参考链接：
+> - [Element - Table 表格](http://element.eleme.io/#/zh-CN/component/table)
+
+`src/components/user-list/template.html`:
+
+```html
+<div>
+<!--
+  表格组件的使用：
+  el-table 组件
+    data 用来绑定表格数据，是一个数组
+    表格组件会根据 data 自动循环渲染
+  el-table-column 组件就是表格列
+    label 属性用来指定列的标题
+    prop 属性用来指定 data 数组中元素项的某个属性
+    width 用来设定表格列的宽度，默认单位是 px
+ -->
+<el-table
+  :data="tableData"
+  style="width: 100%">
+  <el-table-column
+    prop="date"
+    label="日期"
+    width="180">
+  </el-table-column>
+  <el-table-column
+    prop="name"
+    label="姓名"
+    width="180">
+  </el-table-column>
+  <el-table-column
+    prop="address"
+    label="地址">
+  </el-table-column>
+</el-table>
+</div>
+```
+
+`src/components/user-list/script.js`:
+
+```js
+export default {
+  data() {
+    return {
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }]
+    }
+  }
+}
+```
+
+### 在请求头中加入 token 请求用户列表
+
+`src/components/user-list/script.js`
+
+```js
+import axios from 'axios'
+
+export default {
+  // ... 代码略
+
+  created () {
+    // 1. 除了登陆接口，其它接口都需要 token 认证
+    // 2. 我们要做的就是按照服务器接口的要求，把 token 放到请求头的 Authorization 字段中
+    // 3. 对于接口中的查询字符串，我们可以通过 axios 请求的可选参数 params 来指定传递
+    //    params 对象就类似于我们之前使用的 $.ajax 中的 data 选项
+    //    params 对象最终会被转换为 key=value&key=value 的格式字符串然后以 ? 分隔拼接到请求地址后面发起请求
+    //    这样做的好处就是不需要我们自己去 url 中拼 ?key=value&key=value
+    // 服务器 API 除了登陆的接口是可以直接请求处理
+    // 其它所有的接口都必须提供登陆成功交换到的 token 发送给服务器才可以
+    // 我们这里服务器接口要求必须在请求头中通过一个名字为  Authorization 字段提供 token 令牌
+    axios.get('http://localhost:8888/api/private/v1/users', {
+      headers: { // headers 是 axios 的 API，固定的
+        // 需要授权的 API ，必须在请求头中使用 Authorization 字段提供 token 令牌
+        // Authorization 是服务器接口的要求，我们不能乱写
+        // 也就是说如果接口要求在头里面放一个 a 值为 token
+        // 则我们就要
+        //    a: window.localStorage.getItem('token')
+        Authorization: window.localStorage.getItem('token')
+      },
+      params: { // params 可以用来指定请求的查询字符串
+        pagenum: 1, // 告诉接口服务器，我要获取第 1 页的数据
+        pagesize: 5 // 告诉接口服务器，每页5条数据
+      }
+    })
+      .then(res => {
+        console.log(res.data)
+      })
+  }
+
+  // ... 代码略
+}
+
+```
+
+### 将请求得到的数据更新到用户列表表格中
+
+`src/components/user-list/template.html`:
+
+```html{5-19}
+<div>
+  <el-table
+    :data="tableData"
+    style="width: 100%">
+    <el-table-column
+      prop="username"
+      label="用户名"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="email"
+      label="邮箱"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="mobile"
+      label="电话"
+      width="180">
+    </el-table-column>
+  </el-table>
+</div>
+
+```
+
+`src/components/user-list/script.js`:
+
+```js{17}
+import axios from 'axios'
+
+export default {
+  created () {
+    axios.get('http://localhost:8888/api/private/v1/users', {
+      headers: {
+        Authorization: window.localStorage.getItem('token')
+      },
+      params: {
+        pagenum: 1,
+        pagesize: 5
+      }
+    })
+      .then(res => {
+        const {data, meta} = res.data
+        if (meta.status === 200) {
+          this.tableData = data.users
+        }
+      })
+  },
+  data () {
+    return {
+      tableData: []
+    }
+  }
+}
+
+```
 
 ---
 
