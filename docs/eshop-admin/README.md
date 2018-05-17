@@ -280,10 +280,11 @@ handleLogin () {
       const {data, meta} = res.data
       const {msg, status} = meta
 
-      // 将凭证放到到本地存储（会在路由守卫那里使用）
-      window.localStorage.setItem('token', data.token)
-
       if (status === 200) {
+        // 将凭证放到到本地存储（会在路由守卫那里使用）
+        window.localStorage.setItem('token', data.token)
+
+        // 跳转到首页
         this.$router.push('/')
       } else if (status === 400) {
         window.alert(msg)
@@ -359,10 +360,35 @@ new Vue({
 
 ### 布局登陆组件
 
-把公共样式写到 `src/assets/css/index.css` ：
+> 参考链接：
+> - [Element - Form表单](http://element-cn.eleme.io/#/zh-CN/component/form)
+
+参考 Element 的 Form表单组件文档，我们先来个最简单的登陆表单。
+
+将 `src/components/login/template.html` 文件内容替换为：
+
+```html
+<div>
+  <el-form :model="loginForm">
+    <el-form-item>
+      <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-input type="password" v-model="loginForm.password" placeholder="密码"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="handleLogin">登陆</el-button>
+    </el-form-item>
+  </el-form>
+</div>
+```
+
+接下来我们开始调整登陆页面的样式。
+
+首先把公共样式写到 `src/assets/css/index.css` 文件中。
 
 ```css
-html, body {
+html, body, #app {
   width: 100%;
   height: 100%;
 }
@@ -386,40 +412,50 @@ import './assets/css/index.css'
 
 ```
 
-为了让登陆组件的背景色撑满，所以我们需要让它的父盒子 `div#app` 高度设置为 `100%`。
-
-所以我们在 `src/App.vue` ：
-
-```html
-<style>
-#app {
-  width: 100%;
-  height: 100%;
-}
-</style>
-```
-
-最后，我们分别调整登陆组件的HTML结构、JavaScript 行为、及CSS样式：
+最后，我们分别调整登陆组件的HTML结构、及CSS样式：
 
 `src/components/login/template.html`:
 
 ```html
 <div class="login-wrap">
   <div class="login-form">
-    <el-form :model="loginForm" status-icon :rules="loginFromRule" ref="loginForm" class="demo-ruleForm">
-      <el-form-item prop="username">
-        <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="用户名"></el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="密码"></el-input>
+    <el-form :model="loginForm">
+      <el-form-item>
+        <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleLogin('loginForm')">登陆</el-button>
-        <el-button @click="resetForm('loginForm')">重置</el-button>
+        <el-input type="password" v-model="loginForm.password" placeholder="密码"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button class="login-submit" type="primary" @click="handleLogin">登陆</el-button>
       </el-form-item>
     </el-form>
   </div>
 </div>
+
+```
+
+`src/components/login/style.css`:
+
+```css
+.login-wrap {
+  width: 100%;
+  height: 100%;
+  background-color: #2d434c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-wrap .login-form {
+  background-color: #fff;
+  padding: 50px 50px 20px 50px;
+  width: 25%;
+}
+
+.login-wrap .login-form .login-submit {
+  width: 100%;
+}
 
 ```
 
@@ -483,21 +519,153 @@ export default {
 
 ```
 
-`src/components/login/style.css`:
+### 为登陆组件加入表单验证
 
-```css
-.login-wrap {
-  width: 100%;
-  height: 100%;
-  background-color: #2d434c;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+1. 为表单中需要验证的表单项 `el-form-item` 声明 `prop` 属性，属性值给一个有意义的名称
+
+```html{4,7}
+<div class="login-wrap">
+  <div class="login-form">
+    <el-form :model="loginForm">
+      <el-form-item prop="username">
+        <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input type="password" v-model="loginForm.password" placeholder="密码"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button class="login-submit" type="primary" @click="handleLogin">登陆</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</div>
+```
+
+2. 在组件的 `data` 中增加一个属性对象 `loginFormRule` 配置 `prop` 字段属性的验证规则
+
+```js{11,12,13,14,15,16,17,18}
+import axios from 'axios'
+
+export default {
+  // ... 代码略
+  data () {
+    return {
+      loginForm: {
+        username: '',
+        password: ''
+      },
+      loginFormRule: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  // ... 代码略
 }
 
-.login-wrap .login-form {
-  background-color: #fff;
-  padding: 50px;
+```
+
+3. 在登陆组件的模板中为 `el-form` 表单组件绑定 `rules` 属性到 `data` 中定义的 `loginFormRule`
+
+```html{3}
+<div class="login-wrap">
+  <div class="login-form">
+    <el-form :model="loginForm" :rules="loginFormRule">
+    ... 代码略
+```
+
+4. 测试验证是否成功
+
+我们在前面做的 1 - 4 步已经完成了基本的表单验证功能。接下来我们要在表单提交登陆发起请求的时候使用 JavaScript 校验是否通过表单验证，表单验证通过再去提交表单。
+
+首先为登陆组件模板的 `el-form` 组件声明 `ref` 属性，属性值给一个有意义的名字。
+
+```html{3}
+<div class="login-wrap">
+  <div class="login-form">
+    <el-form ref="form" :model="loginForm" :rules="loginFormRule">
+    ... 代码略
+```
+
+然后在表单提交的时候调用 JavaScript 判断表单验证是否通过，通过再发起登陆请求。
+
+```js{8}
+import axios from 'axios'
+
+export default {
+  // ... 代码略
+  methods: {
+    handleLogin () {
+      // ['form'] 中的 form 就是 el-form 标签 ref 属性值
+      this.$refs['form'].validate((valid) => {
+        if (!valid) {
+          return
+        }
+        axios.post('http://localhost:8888/api/private/v1/login', this.loginForm)
+          .then(res => {
+            const {data, meta} = res.data
+            const {msg, status} = meta
+            if (status === 200) {
+              // 将凭证放到到本地存储（会在路由守卫那里使用）
+              window.localStorage.setItem('token', data.token)
+
+              // 跳转到首页
+              this.$router.push('/')
+            } else if (status === 400) {
+              window.alert(msg)
+            }
+          })
+      })
+    }
+  }
+  // ... 代码略
+}
+
+```
+
+### 使用 Message 消息提示给出操作反馈
+
+无论登陆成功还是登陆失败，我们都应该给出用户一个友好的提示。这里我们可以使用 Element 提供的 [Message 消息提示](http://element-cn.eleme.io/#/zh-CN/component/message) 组件来很方便的实现。
+
+```js{23,28}
+import axios from 'axios'
+
+export default {
+  // ... 代码略
+  methods: {
+    handleLogin () {
+      // ['form'] 中的 form 就是 el-form 标签 ref 属性值
+      this.$refs['form'].validate((valid) => {
+        if (!valid) {
+          return
+        }
+        axios.post('http://localhost:8888/api/private/v1/login', this.loginForm)
+          .then(res => {
+            const {data, meta} = res.data
+            const {msg, status} = meta
+            if (status === 200) {
+              // 将凭证放到到本地存储（会在路由守卫那里使用）
+              window.localStorage.setItem('token', data.token)
+
+              // 跳转到首页
+              this.$router.push('/')
+
+              this.$message({
+                message: '登陆成功',
+                type: 'success'
+              })
+            } else if (status === 400) {
+              this.$message.error(msg)
+            }
+          })
+      })
+    }
+  }
+  // ... 代码略
 }
 
 ```
