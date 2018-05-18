@@ -1065,6 +1065,296 @@ export default {
 
 ```
 
+### 分页展示用户列表
+
+`src/components/user-list/template.html`:
+
+```html{7-13}
+<div>
+  <!-- 表格列表 -->
+  ... 代码略
+  <!-- /表格列表 -->
+
+  <!-- 数据分页 -->
+  <el-pagination
+    background
+    layout="prev, pager, next"
+    :page-size="2"
+    :total="total"
+    @current-change="handleCurrentChange">
+  </el-pagination>
+  <!-- /数据分页 -->
+</div>
+
+```
+
+`src/components/user-list/script.js`:
+
+```js{6,11,15-18,20-36}
+import axios from 'axios'
+
+export default {
+  created () {
+    // 页码第一次加载，显示第1页数据
+    this.loadUsersByPage(1)
+  },
+  data () {
+    return {
+      tableData: [],
+      total: 0
+    }
+  },
+  methods: {
+    handleCurrentChange (page) {
+      // 在页码改变的时候，请求加载该页码对应的数据
+      this.loadUsersByPage(page)
+    },
+
+    loadUsersByPage (page) {
+      axios.get('http://localhost:8888/api/private/v1/users', {
+        headers: {
+          Authorization: window.localStorage.getItem('token')
+        },
+        params: {
+          pagenum: page,
+          pagesize: 2
+        }
+      }).then(res => {
+          const {data, meta} = res.data
+          if (meta.status === 200) {
+            this.tableData = data.users
+            this.total = data.total
+          }
+        })
+    }
+  }
+}
+
+```
+
+### 用户列表搜索
+
+`src/components/user-list/template.html`:
+
+```html{5}
+<div>
+  <el-row>
+    <el-col :span="6">
+      <el-input placeholder="请输入内容" v-model="searchText" class="input-with-select">
+        <el-button slot="append" icon="el-icon-search" @click="handleSearch"></el-button>
+      </el-input>
+    </el-col>
+  </el-row>
+  <!-- 表格列表 -->
+  ... 代码略
+  <!-- /表格列表 -->
+
+  <!-- 数据分页 -->
+  ... 代码略
+  <!-- /数据分页 -->
+</div>
+
+```
+
+`src/components/user-list/script.js`:
+
+```js{12,43-47}
+import axios from 'axios'
+
+export default {
+  created () {
+    // 页码第一次加载，显示第1页数据
+    this.loadUsersByPage(1)
+  },
+  data () {
+    return {
+      tableData: [],
+      total: 0,
+      searchText: ''
+    }
+  },
+  methods: {
+    handleCurrentChange (page) {
+      // 在页码改变的时候，请求加载该页码对应的数据
+      this.loadUsersByPage(page)
+    },
+
+    loadUsersByPage (page) {
+      axios.get('http://localhost:8888/api/private/v1/users', {
+        headers: {
+          Authorization: window.localStorage.getItem('token')
+        },
+        params: {
+          pagenum: page,
+          pagesize: 2,
+          query: this.searchText  // query 参数可选，用来指定查询的筛选条件，这里的筛选条件是用户名
+        }
+      }).then(res => {
+          const {data, meta} = res.data
+          if (meta.status === 200) {
+            this.tableData = data.users
+            this.total = data.total
+          }
+        })
+    },
+
+    /**
+     * 处理搜索
+     */
+    handleSearch () {
+      // 点击搜索，调用请求方法加载数据列表
+      // 请求方法中会去根据输入框中的内容进行搜索
+      this.loadUsersByPage(1)
+    }
+  }
+}
+
+```
+
+### 添加用户
+
+`shop-admin/src/components/user-list/template.html`:
+
+```html{14,32-51}
+<div>
+  <!-- 面包屑 -->
+  ... 代码略
+  <!-- /面包屑 -->
+
+  <!-- 搜索 -->
+  <el-row :gutter="20">
+    <el-col :span="6">
+      <el-input placeholder="请输入内容" v-model="searchText">
+        <el-button slot="append" icon="el-icon-search" @click="handleSearch"></el-button>
+      </el-input>
+    </el-col>
+    <el-col :span="2">
+      <el-button type="primary" @click="dialogFormVisible = true">添加用户</el-button>
+    </el-col>
+  </el-row>
+  <!-- /搜索 -->
+
+  <!-- 表格列表 -->
+  ... 代码略
+  <!-- /表格列表 -->
+
+  <!-- 数据分页 -->
+  ... 代码略
+  <!-- /数据分页 -->
+
+  <!-- 添加用户对话框 -->
+  <!--
+    el-dialog 是对话框组件
+      visible 属性需要绑定一个布尔值，对话框会根据布尔值的真假来决定显示与隐藏
+   -->
+  <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
+    <el-form ref="form" :model="addUserForm" label-position="left" size="small" :rules="formRule">
+      <el-form-item label="用户名" label-width="80px" prop="username">
+        <el-input v-model="addUserForm.username" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" label-width="80px" prop="password">
+        <el-input v-model="addUserForm.password" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="邮箱" label-width="80px" prop="email">
+        <el-input v-model="addUserForm.email" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="电话" label-width="80px" prop="mobile">
+        <el-input v-model="addUserForm.mobile" auto-complete="off"></el-input>
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogFormVisible = false">取 消</el-button>
+      <el-button type="primary" @click="handleAddUser">确 定</el-button>
+    </div>
+  </el-dialog>
+  <!-- 添加用户对话框 -->
+</div>
+
+```
+
+`src/components/user-list/script.js`:
+
+```js{12-34,44-66}
+import axios from 'axios'
+
+export default {
+  created () {
+    this.loadUsersByPage(1)
+  },
+  data () {
+    return {
+      tableData: [],
+      total: 0,
+      searchText: '',
+      dialogFormVisible: false,
+      addUserForm: {
+        username: '',
+        password: '',
+        email: '',
+        mobile: ''
+      },
+      formRule: {
+        username: [
+          {required: true, message: '请输入用户名', trigger: 'blur'}
+        ],
+        password: [
+          {required: true, message: '请输入密码', trigger: 'blur'},
+          {min: 3, max: 16, message: '密码为 3 - 16 位长度', trigger: 'blur'}
+        ],
+        email: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { type: 'email', message: '请输入正确的邮箱', trigger: 'blur' }
+        ],
+        mobile: [
+          { required: true, message: '请输入手机号', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  methods: {
+    // ... 代码略
+    // ... 代码略
+
+    /**
+     * 添加用户
+     */
+    handleAddUser () {
+      axios({
+        method: 'post',
+        url: 'http://localhost:8888/api/private/v1/users',
+        data: this.addUserForm,
+        headers: {
+          Authorization: window.localStorage.getItem('token')
+        }
+      }).then(res => {
+        if (res.data.meta.status === 201) {
+          this.$message({
+            type: 'success',
+            message: '添加用户成功'
+          })
+
+          // 关闭对话框
+          this.dialogFormVisible = false
+
+          // 清空表单
+          this.$refs['form'].resetFields()
+        }
+      })
+    }
+
+    // ... 代码略
+    // ... 代码略
+  }
+}
+
+```
+
+### 修改用户状态
+
+### 删除用户
+
+### 编辑用户
+
 ---
 
 ## 将 axios 扩展为 Vue 插件
