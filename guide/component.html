@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vue.js 入门教程 | 组件基础</title>
+    <meta name="description" content="Vue.js - The Progressive JavaScript Framework">
+    
+    
+    <link rel="preload" href="/assets/css/15.styles.b74f3623.css" as="style"><link rel="preload" href="/assets/js/app.8d931d04.js" as="script"><link rel="preload" href="/assets/js/10.37e665a5.js" as="script"><link rel="prefetch" href="/assets/js/5.8b4baf4d.js"><link rel="prefetch" href="/assets/js/0.f9e83059.js"><link rel="prefetch" href="/assets/js/1.625fd7f5.js"><link rel="prefetch" href="/assets/js/2.4db3e075.js"><link rel="prefetch" href="/assets/js/3.b4b548ca.js"><link rel="prefetch" href="/assets/js/4.152495d4.js"><link rel="prefetch" href="/assets/js/6.f3ef6064.js"><link rel="prefetch" href="/assets/js/7.7b9704da.js"><link rel="prefetch" href="/assets/js/8.c2244a92.js"><link rel="prefetch" href="/assets/js/9.8c08ee8a.js"><link rel="prefetch" href="/assets/js/11.7aff317b.js"><link rel="prefetch" href="/assets/js/12.a908105b.js"><link rel="prefetch" href="/assets/js/13.5d547206.js"><link rel="prefetch" href="/assets/js/14.5773019e.js">
+    <link rel="stylesheet" href="/assets/css/15.styles.b74f3623.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      Vue.js 入门教程
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><nav class="nav-links can-hide"><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">基础</a></div><div class="nav-item"><a href="/eshop-admin/" class="nav-link">综合案例</a></div><a href="https://github.com/lipengzhou/vuejs-tutorial" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">基础</a></div><div class="nav-item"><a href="/eshop-admin/" class="nav-link">综合案例</a></div><a href="https://github.com/lipengzhou/vuejs-tutorial" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav><ul class="sidebar-links"><li><a href="/guide/getting-started.html" class="sidebar-link">起步</a></li><li><a href="/guide/template-syntax.html" class="sidebar-link">模板语法</a></li><li><a href="/guide/todomvc.html" class="sidebar-link">基础案例：TodoMVC</a></li><li><a href="/guide/component.html" class="active sidebar-link">组件基础</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/component.html#通过-element-感受组件的威力" class="sidebar-link">通过 Element 感受组件的威力</a></li><li class="sidebar-sub-header"><a href="/guide/component.html#使用组件" class="sidebar-link">使用组件</a></li><li class="sidebar-sub-header"><a href="/guide/component.html#组件化构建-todomvc" class="sidebar-link">组件化构建 TodoMVC</a></li><li class="sidebar-sub-header"><a href="/guide/component.html#父子组件通信：props-down" class="sidebar-link">父子组件通信：Props Down</a></li><li class="sidebar-sub-header"><a href="/guide/component.html#父子组件通信：events-up" class="sidebar-link">父子组件通信：Events Up</a></li><li class="sidebar-sub-header"><a href="/guide/component.html#非父子组件通信：event-bus" class="sidebar-link">非父子组件通信：Event Bus</a></li><li class="sidebar-sub-header"><a href="/guide/component.html#专业组件通信大杀器：vuex" class="sidebar-link">专业组件通信大杀器：Vuex</a></li><li class="sidebar-sub-header"><a href="/guide/component.html#使用插槽分发内容" class="sidebar-link">使用插槽分发内容</a></li><li class="sidebar-sub-header"><a href="/guide/component.html#组件其它" class="sidebar-link">组件其它</a></li></ul></li><li><a href="/guide/vue-cli-example.html" class="sidebar-link">VueCLI+Vue+VueRouter 案例</a></li><li><a href="/guide/webpack.html" class="sidebar-link">webpack</a></li><li><a href="/guide/ajax.html" class="sidebar-link">和服务端通信</a></li><li><a href="/guide/vue-router.html" class="sidebar-link">Vue Router</a></li><li><a href="/guide/other.html" class="sidebar-link">其它</a></li></ul></div><div class="page"><div class="content"><h1 id="组件基础"><a href="#组件基础" aria-hidden="true" class="header-anchor">#</a> 组件基础</h1><blockquote><p>组件基础：</p><ul><li>了解组件的概念</li><li>掌握组件的定义</li><li>了解组件的组织方式</li><li>掌握组件通信</li></ul></blockquote><p>组件 (Component) 是 Vue.js 最强大的功能之一。组件可以扩展 HTML 元素，封装可重用的代码。</p><p><img src="https://cn.vuejs.org/images/components.png" alt="Component Tree"></p><h2 id="通过-element-感受组件的威力"><a href="#通过-element-感受组件的威力" aria-hidden="true" class="header-anchor">#</a> 通过 Element 感受组件的威力</h2><p>Element 是基于 Vue 开发的一个知名的第三方组件库，它能帮助我们更加快速的构建应用。</p><blockquote><p><a href="http://element-cn.eleme.io/" target="_blank" rel="noopener noreferrer">Element 官网</a></p></blockquote><p>安装：</p><pre class="language-bash"><code><span class="token function">npm</span> i element-ui
+</code></pre><p>Hello World:</p><pre class="language-html"><code><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>UTF-8<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!-- 引入样式 --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>stylesheet<span class="token punctuation">&quot;</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>https://unpkg.com/element-ui/lib/theme-chalk/index.css<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>app<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>visible = true<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>按钮<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-dialog</span> <span class="token attr-name">:visible.sync</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>visible<span class="token punctuation">&quot;</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Hello world<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>欢迎使用 Element<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-dialog</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!-- 先引入 Vue --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>https://unpkg.com/vue/dist/vue.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!-- 引入组件库 --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>https://unpkg.com/element-ui/lib/index.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+    <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      el<span class="token punctuation">:</span> <span class="token string">'#app'</span><span class="token punctuation">,</span>
+      data<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span> visible<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+
+</code></pre><hr><h2 id="使用组件"><a href="#使用组件" aria-hidden="true" class="header-anchor">#</a> 使用组件</h2><p>组件的定义方式分为两种，全局定义和局部定义：</p><ul><li>全局组件定义在全局，在任意组件中都可以直接使用</li><li>局部组件定义在组件内部，只能在当前组件使用</li><li>建议把通用的组件定义在全局，把不通用的组件定义在局部</li></ul><h3 id="全局注册"><a href="#全局注册" aria-hidden="true" class="header-anchor">#</a> 全局注册</h3><p>注册：</p><pre class="language-text"><code>Vue.component('my-component', {
+  template: '&lt;div&gt;A custom component!&lt;/div&gt;'
+});
+
+// 创建根实例
+new Vue({
+  el: '#example'
+});
+</code></pre><p>在模板中使用组件：</p><pre class="language-text"><code>&lt;div id=&quot;example&quot;&gt;
+  &lt;my-component&gt;&lt;/my-component&gt;
+&lt;/div&gt;
+</code></pre><p>渲染结果：</p><pre class="language-text"><code>&lt;div id=&quot;example&quot;&gt;
+  &lt;div&gt;A custom component!&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h3 id="局部注册"><a href="#局部注册" aria-hidden="true" class="header-anchor">#</a> 局部注册</h3><p>你不必把每个组件都注册到全局。你可以通过某个 Vue 实例/组件的实例选项 <code>components</code> 注册仅在其作用域中可用的组件：</p><p>注册：</p><pre class="language-text"><code>new Vue({
+  // ...
+  components: {
+    // &lt;my-component&gt; 将只在父组件模板中可用
+    'my-component': {
+      template: '&lt;div&gt;A custom component!&lt;/div&gt;'
+    }
+  }
+});
+</code></pre><p>使用：</p><pre class="language-text"><code>&lt;div id=&quot;example&quot;&gt;
+  &lt;div&gt;A custom component!&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><hr><h3 id="组件的模板"><a href="#组件的模板" aria-hidden="true" class="header-anchor">#</a> 组件的模板</h3><ul><li>DOM 模板</li><li>字符串模板</li><li>.vue 单文件组件中的 <code>template</code> 模板</li></ul><h3 id="组件的-data-必须是函数"><a href="#组件的-data-必须是函数" aria-hidden="true" class="header-anchor">#</a> 组件的 <code>data</code> 必须是函数</h3><p>构造 Vue 实例时传入的各种选项大多数都可以在组件里使用。只有一个例外：data 必须是函数。</p><pre class="language-text"><code>Vue.component('simple-counter', {
+  template: '&lt;button v-on:click=&quot;counter += 1&quot;&gt;{{ counter }}&lt;/button&gt;',
+  data: function () {
+    return { counter: 0 }
+  }
+});
+
+new Vue({
+  el: '#example-2'
+});
+</code></pre><h3 id="组件的作用域是独立的"><a href="#组件的作用域是独立的" aria-hidden="true" class="header-anchor">#</a> 组件的作用域是独立的</h3><ul><li>组件无法访问外部作用域成员</li><li>外部作用域也无法访问组件内部成员</li></ul><h3 id="组件组合"><a href="#组件组合" aria-hidden="true" class="header-anchor">#</a> 组件组合</h3><p>组件设计初衷就是要配合使用的，最常见的就是形成父子组件的关系：组件 A 在它的模板中使用了组件 B。它们之间必然需要相互通信：父组件可能要给子组件下发数据，子组件则可能要将它内部发生的事情告知父组件。然而，通过一个良好定义的接口来尽可能将父子组件解耦也是很重要的。这保证了每个组件的代码可以在相对隔离的环境中书写和理解，从而提高了其可维护性和复用性。
+在 Vue 中，父子组件的关系可以总结为 prop 向下传递，事件向上传递。父组件通过 prop 给子组件下发数据，子组件通过事件给父组件发送消息。看看它们是怎么工作的。</p><p><img src="https://cn.vuejs.org/images/props-events.png" alt="prop 向下传递，事件向上传递"></p><hr><h2 id="组件化构建-todomvc"><a href="#组件化构建-todomvc" aria-hidden="true" class="header-anchor">#</a> 组件化构建 TodoMVC</h2><p><img src="/assets/img/todomvc-component.a6b47bb9.png" alt="todomvc-component.png"></p><hr><h2 id="父子组件通信：props-down"><a href="#父子组件通信：props-down" aria-hidden="true" class="header-anchor">#</a> 父子组件通信：Props Down</h2><p><strong>1. 在父组件中通过子组件标签属性传递数据</strong></p><pre class="language-text"><code>&lt;child message=&quot;hello!&quot;&gt;&lt;/child&gt;
+</code></pre><p><strong>2. 在子组件显式地用 <code>props</code> 选项声明它预期的数据并使用</strong></p><pre class="language-text"><code>Vue.component('child', {
+  // 声明 props
+  props: ['message'],
+  // 就像 data 一样，prop 也可以在模板中使用
+  // 同样也可以在 vm 实例中通过 this.message 来使用
+  template: '&lt;span&gt;{{ message }}&lt;/span&gt;'
+});
+</code></pre><h3 id="camelcase-vs-kebab-case"><a href="#camelcase-vs-kebab-case" aria-hidden="true" class="header-anchor">#</a> camelCase vs. kebab-case</h3><p>HTML 特性是不区分大小写的。所以，当使用的不是字符串模板时，camelCase (驼峰式命名) 的 prop 需要转换为相对应的 kebab-case (短横线分隔式命名)。</p><pre class="language-text"><code>Vue.component('child', {
+  // 在 JavaScript 中使用 camelCase
+  props: ['myMessage'],
+  template: '&lt;span&gt;{{ myMessage }}&lt;/span&gt;'
+});
+</code></pre><pre class="language-text"><code>&lt;!-- 在 HTML 中使用 kebab-case --&gt;
+&lt;child my-message=&quot;hello!&quot;&gt;&lt;/child&gt;
+</code></pre><p>如果你使用字符串模板，则没有这些限制。</p><h3 id="动态-prop"><a href="#动态-prop" aria-hidden="true" class="header-anchor">#</a> 动态 Prop</h3><p>与绑定到任何普通的 HTML 特性相类似，我们可以用 <code>v-bind</code> 来动态地将 <code>prop</code> 绑定到父组件的数据。每当父组件的数据变化时，该变化也会传导给子组件：</p><pre class="language-text"><code>&lt;div&gt;
+  &lt;input v-model=&quot;parentMsg&quot;&gt;
+  &lt;br&gt;
+  &lt;child v-bind:my-message=&quot;parentMsg&quot;&gt;&lt;/child&gt;
+&lt;/div&gt;
+</code></pre><p>你也可以使用 v-bind 的缩写语法：</p><pre class="language-text"><code>&lt;child :my-message=&quot;parentMsg&quot;&gt;&lt;/child&gt;
+</code></pre><h3 id="字面量语法-vs-动态语法"><a href="#字面量语法-vs-动态语法" aria-hidden="true" class="header-anchor">#</a> 字面量语法 vs 动态语法</h3><p>初学者常犯的一个错误是使用字面量语法传递数值：</p><pre class="language-text"><code>&lt;!-- 传递了一个字符串 &quot;1&quot; --&gt;
+&lt;comp some-prop=&quot;1&quot;&gt;&lt;/comp&gt;
+</code></pre><p>因为它是一个字面量 prop，它的值是字符串 &quot;1&quot; 而不是一个数值。如果想传递一个真正的 JavaScript 数值，则需要使用 v-bind，从而让它的值被当作 JavaScript 表达式计算：</p><pre class="language-text"><code>&lt;!-- 传递真正的数值 --&gt;
+&lt;comp v-bind:some-prop=&quot;1&quot;&gt;&lt;/comp&gt;
+</code></pre><h3 id="单向数据流"><a href="#单向数据流" aria-hidden="true" class="header-anchor">#</a> 单向数据流</h3><p>Prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是反过来不会。这是为了防止子组件无意间修改了父组件的状态，来避免应用的数据流变得难以理解。</p><p>另外，每次父组件更新时，子组件的所有 prop 都会更新为最新值。这意味着你不应该在子组件内部改变 prop。如果你这么做了，Vue 会在控制台给出警告。</p><p>在两种情况下，我们很容易忍不住想去修改 prop 中数据：</p><ol><li>Prop 作为初始值传入后，子组件想把它当作局部数据来用</li><li>Prop 作为原始数据传入，由子组件处理成其它数据输出</li></ol><p>对这两种情况，正确的应对方式是：</p><p><strong>1. 定义一个局部变量，并用 prop 的值初始化它：</strong></p><pre class="language-text"><code>props: ['initialCounter'],
+data: function () {
+  return { counter: this.initialCounter }
+}
+</code></pre><p><strong>2. 定义一个计算属性，处理 prop 的值并返回：</strong></p><pre class="language-text"><code>// ...
+props: ['size'],
+computed: {
+  normalizedSize: function () {
+    return this.size.trim().toLowerCase()
+  }
+},
+</code></pre><p>!&gt; 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它会影响父组件的状态。</p><h3 id="prop-验证"><a href="#prop-验证" aria-hidden="true" class="header-anchor">#</a> Prop 验证</h3><p>我们可以为组件的 prop 指定验证规则。如果传入的数据不符合要求，Vue 会发出警告。这对于开发给他人使用的组件非常有用。
+要指定验证规则，需要用对象的形式来定义 prop，而不能用字符串数组：</p><pre class="language-text"><code>Vue.component('example', {
+  props: {
+    // 基础类型检测 (`null` 指允许任何类型)
+    propA: Number,
+    // 可能是多种类型
+    propB: [String, Number],
+    // 必传且是字符串
+    propC: {
+      type: String,
+      required: true
+    },
+    // 数值且有默认值
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 数组/对象的默认值应当由一个工厂函数返回
+    propE: {
+      type: Object,
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // 自定义验证函数
+    propF: {
+      validator: function (value) {
+        return value &gt; 10
+      }
+    }
+  }
+});
+</code></pre><p><code>type</code> 可以是下面原生构造器：</p><ul><li>String</li><li>Number</li><li>Boolean</li><li>Function</li><li>Object</li><li>Array</li><li>Symbol</li></ul><p>type 也可以是一个自定义构造器函数，使用 instanceof 检测。</p><p>当 prop 验证失败，Vue 会抛出警告 (如果使用的是开发版本)。
+注意 prop 会在组件实例创建之前进行校验，所以在 default 或 validator 函数里，诸如 data、computed 或 methods 等实例属性还无法使用。</p><hr><h2 id="父子组件通信：events-up"><a href="#父子组件通信：events-up" aria-hidden="true" class="header-anchor">#</a> 父子组件通信：Events Up</h2><p>我们知道，父组件使用 prop 传递数据给子组件。但子组件怎么跟父组件通信呢？这个时候 Vue 的自定义事件系统就派得上用场了。</p><p><strong>1. 在子组件中调用 <code>$emit()</code> 方法发布一个事件</strong></p><pre class="language-text"><code>Vue.component('button-counter', {
+  template: '&lt;button v-on:click=&quot;incrementCounter&quot;&gt;{{ counter }}&lt;/button&gt;',
+  data: function () {
+    return {
+      counter: 0
+    }
+  },
+  methods: {
+    incrementCounter: function () {
+      this.counter += 1
+      // 发布一个名字叫 increment 的事件
+      this.$emit('increment')
+    }
+  },
+});
+</code></pre><p><strong>2. 在父组件中提供一个子组件内部发布的事件处理函数</strong></p><pre class="language-text"><code>new Vue({
+  el: '#counter-event-example',
+  data: {
+    total: 0
+  },
+  methods: {
+    incrementTotal: function () {
+      this.total += 1
+    }
+  }
+});
+</code></pre><p><strong>3. 在使用子组件的模板的标签上订阅子组件内部发布的事件</strong></p><pre class="language-text"><code>&lt;div id=&quot;counter-event-example&quot;&gt;
+  &lt;p&gt;{{ total }}&lt;/p&gt;
+  &lt;!-- 
+    订阅子组件内部发布的 increment 事件
+    当子组件内部 $commit('increment') 发布的时候，就会调用到父组件中的 incrementTotal 方法
+  --&gt;
+  &lt;button-counter v-on:increment=&quot;incrementTotal&quot;&gt;&lt;/button-counter&gt;
+&lt;/div&gt;
+</code></pre><h3 id="给组件绑定原生事件"><a href="#给组件绑定原生事件" aria-hidden="true" class="header-anchor">#</a> 给组件绑定原生事件</h3><p>有时候，你可能想在某个组件的根元素上监听一个原生事件。可以使用 <code>v-on</code> 的修饰符 <code>.native</code>。例如：</p><pre class="language-text"><code>&lt;my-component v-on:click.native=&quot;doTheThing&quot;&gt;&lt;/my-component&gt;
+</code></pre><h3 id="sync-修饰符"><a href="#sync-修饰符" aria-hidden="true" class="header-anchor">#</a><code>.sync</code> 修饰符</h3><p>在一些情况下，我们可能会需要对一个 prop 进行“双向绑定”。
+就是当一个子组件改变了一个带 .sync 的 prop 的值时，这个变化也会同步到父组件中所绑定的值。</p><p>在使用子组件的时候加上 <code>.sync</code> 修饰符：</p><pre class="language-text"><code>&lt;comp :foo.sync=&quot;bar&quot;&gt;&lt;/comp&gt;
+</code></pre><p>在子组件内部更新 <code>foo</code> 的值时，显示的触发一个更新事件：</p><pre class="language-text"><code>this.$emit('update:foo', newValue);
+</code></pre><hr><h2 id="非父子组件通信：event-bus"><a href="#非父子组件通信：event-bus" aria-hidden="true" class="header-anchor">#</a> 非父子组件通信：Event Bus</h2><p>有时候，非父子关系的两个组件之间也需要通信。在简单的场景下，可以使用一个空的 Vue 实例作为事件总线：</p><pre class="language-text"><code>var bus = new Vue();
+</code></pre><pre class="language-text"><code>// 触发组件 A 中的事件
+bus.$emit('id-selected', 1);
+</code></pre><pre class="language-text"><code>// 在组件 B 创建的钩子中监听事件
+bus.$on('id-selected', function (id) {
+  // ...
+});
+</code></pre><hr><h2 id="专业组件通信大杀器：vuex"><a href="#专业组件通信大杀器：vuex" aria-hidden="true" class="header-anchor">#</a> 专业组件通信大杀器：Vuex</h2><p>在复杂的情况下，我们应该考虑使用专门的 <a href="https://vuex.vuejs.org/zh-cn/" target="_blank" rel="noopener noreferrer">状态管理模式</a>。</p><hr><h2 id="使用插槽分发内容"><a href="#使用插槽分发内容" aria-hidden="true" class="header-anchor">#</a> 使用插槽分发内容</h2><hr><h2 id="组件其它"><a href="#组件其它" aria-hidden="true" class="header-anchor">#</a> 组件其它</h2></div><div class="content edit-link"><a href="https://github.com/lipengzhou/vuejs-tutorial/edit/master/docs/guide/component.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/guide/todomvc.html" class="prev">
+          基础案例：TodoMVC
+        </a></span><span class="next"><a href="/guide/vue-cli-example.html">
+          VueCLI+Vue+VueRouter 案例
+        </a> →
+      </span></p></div></div></div></div>
+    <script src="/assets/js/10.37e665a5.js" defer></script><script src="/assets/js/app.8d931d04.js" defer></script>
+  </body>
+</html>
